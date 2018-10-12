@@ -5,13 +5,27 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pasajero")
 public class Passenger {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
     @Column(name = "id_pasajero")
     private int idPassenger;
+
+    @Column(name = "dni")
     private String dni;
+
+    @Column(name = "nombre")
     private String name;
+
+    @Column(name = "apellido")
     private String surname;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "salt")
+    private String salt;
+
+    @Column(name = "password_hash")
+    private String passwordHash;
 
     public Passenger() {
     }
@@ -64,5 +78,20 @@ public class Passenger {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 }
