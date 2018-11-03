@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Passenger {
     @Id @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
     @Column(name = "id_pasajero")
-    private int idPassenger;
+    private Long passengerId;
 
     @Column(name = "dni")
     private String dni;
@@ -31,8 +31,8 @@ public class Passenger {
     }
 
 
-    public Passenger(int idPassenger, String dni, String name, String surname, String email) {
-        this.idPassenger = idPassenger;
+    public Passenger(Long passengerId, String dni, String name, String surname, String email) {
+        this.passengerId = passengerId;
         this.dni = dni;
         this.name = name;
         this.surname = surname;
@@ -40,12 +40,12 @@ public class Passenger {
     }
 
 
-    public int getIdPassenger() {
-        return idPassenger;
+    public Long getPassengerId() {
+        return passengerId;
     }
 
-    public void setIdPassenger(int idPassenger) {
-        this.idPassenger = idPassenger;
+    public void setPassengerId(Long passengerId) {
+        this.passengerId = passengerId;
     }
 
     public String getDni() {

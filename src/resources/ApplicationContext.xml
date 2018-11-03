@@ -38,8 +38,12 @@
         </property>
     </bean>
 
-    <bean id="passengerFactory" class="com.tdp2.group152.PassengerFactory">
-        <property name="sessionFactory" ref="hibernateSessionFactory"/>
+    <bean id="passengerService" class="com.tdp2.group152.PassengerService">
+        <constructor-arg name="passengerDao" ref="passengerFactory"/>
+    </bean>
+
+    <bean id="passengerFactory" class="com.tdp2.group152.PassengerDAO">
+        <constructor-arg name="sessionFactory" ref="hibernateSessionFactory"/>
     </bean>
 
     <!-- @Transactional support -->
