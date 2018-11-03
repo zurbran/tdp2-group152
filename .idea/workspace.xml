@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="515c1313-0bb9-4be0-aeb9-74854ae17f90" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tdp2/group152/CombiHasParada.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tdp2/group152/CombiHasParadaId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tdp2/group152/Journey.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tdp2/group152/Minibus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tdp2/group152/MinibusStop.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tdp2/group152/PassengerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tdp2/group152/Ticket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.log" beforeDir="false" afterPath="$PROJECT_DIR$/app.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/schema/recreateSchema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/config/schema/recreateSchema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/scripts/run-docker-mysql-latest.sh" beforeDir="false" afterPath="$PROJECT_DIR$/config/scripts/run-docker-mysql-latest.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tdp2/group152/Passenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tdp2/group152/Passenger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tdp2/group152/PassengerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tdp2/group152/PassengerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/ApplicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/ApplicationContext.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/tdp2/group152/PassengerFactoryTestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/tdp2/group152/PassengerFactoryTestCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ApplicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ApplicationContext.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tdp2/group152/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tdp2/group152/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tdp2/group152/Passenger.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tdp2/group152/Passenger.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tdp2/group152/PassengerFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tdp2/group152/SaltGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tdp2/group152/SaltGenerator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/tdp2/group152/AppTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/tdp2/group152/AppTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/tdp2/group152/PassengerFactoryTestCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/tdp2/group152/PassengerFactoryTestCase.class" afterDir="false" />
-    </list>
+    <list default="true" id="515c1313-0bb9-4be0-aeb9-74854ae17f90" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -393,7 +369,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541215948143" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541252643706" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -507,7 +483,7 @@
       <workItem from="1541112888731" duration="187000" />
       <workItem from="1541113108797" duration="170000" />
       <workItem from="1541113308356" duration="59000" />
-      <workItem from="1541113395708" duration="19614000" />
+      <workItem from="1541113395708" duration="20213000" />
     </task>
     <servers />
   </component>
@@ -544,7 +520,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37085000" />
+    <option name="totallyTimeSpent" value="37684000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="2560" height="1358" extended-state="6" />
