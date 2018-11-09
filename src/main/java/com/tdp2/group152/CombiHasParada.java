@@ -6,34 +6,27 @@ import java.util.Objects;
 
 @Entity(name = "CombiHasParada")
 @Table(name = "combi_has_parada")
+@AssociationOverrides({
+        @AssociationOverride(name = "id.minibus",
+                joinColumns = @JoinColumn(name = "combi_id_combi")),
+        @AssociationOverride(name = "id.minibusStop",
+                joinColumns = @JoinColumn(name = "parada_id_parada")) })
 public class CombiHasParada {
 
     @EmbeddedId
     private CombiHasParadaId id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @MapsId("minibusId")
-    private Minibus minibus;
-
-    @ManyToOne(fetch =  FetchType.EAGER)
-    @MapsId("minibusStopId")
-    private MinibusStop minibusStop;
-
-    @Column(name = "hora")
     private Date pickUpTime;
 
     public CombiHasParada() {
     }
 
     public CombiHasParada(Minibus minibus, MinibusStop minibusStop) {
-        this.minibus = minibus;
-        this.minibusStop = minibusStop;
+        this.id = new CombiHasParadaId();
     }
 
     public CombiHasParada(CombiHasParadaId id, Minibus minibus, MinibusStop minibusStop, Date pickUpTime) {
         this.id = id;
-        this.minibus = minibus;
-        this.minibusStop = minibusStop;
         this.pickUpTime = pickUpTime;
     }
 
@@ -45,22 +38,26 @@ public class CombiHasParada {
         this.id = id;
     }
 
+    @Transient
     public Minibus getMinibus() {
-        return minibus;
+        return this.id.getMinibus();
     }
 
     public void setMinibus(Minibus minibus) {
-        this.minibus = minibus;
+        this.id.setMinibus(minibus);
     }
 
+    @Transient
     public MinibusStop getMinibusStop() {
-        return minibusStop;
+        return this.id.getMinibusStop();
     }
 
     public void setMinibusStop(MinibusStop minibusStop) {
-        this.minibusStop = minibusStop;
+        this.id.setMinibusStop(minibusStop);
     }
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "hora", nullable = false)
     public Date getPickUpTime() {
         return pickUpTime;
     }
@@ -77,12 +74,14 @@ public class CombiHasParada {
             return false;
 
         CombiHasParada that = (CombiHasParada) o;
-        return Objects.equals(minibus, that.minibus) &&
-                Objects.equals(minibusStop, that.minibusStop);
+        if (getId() != null ? !getId().equals(that.getId())
+                : that.getId() != null)
+            return false;
+
+        return true;
     }
 
-    @Override
     public int hashCode() {
-        return Objects.hash(minibus, minibusStop);
+        return (getId() != null ? getId().hashCode() : 0);
     }
 }

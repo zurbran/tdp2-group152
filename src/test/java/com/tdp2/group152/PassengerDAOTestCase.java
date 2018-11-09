@@ -1,33 +1,64 @@
 package com.tdp2.group152;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.model.InitializationError;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+
 import org.mindrot.jbcrypt.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:ApplicationContext.xml")
-@Transactional
-public class PassengerFactoryTestCase {
-
-//    ApplicationContext context = new FileSystemXmlApplicationContext("src/resources/ApplicationContext.xml");
+@Rollback
+public class PassengerDAOTestCase {
 
     @Autowired
     private PassengerDAO passengerFactory;
 
     @Autowired
-    PassengerService passengerService;
+    private ReservationDAO reservationDAO;
+
+    private Minibus minibus;
+
+    private Ticket ticket;
+
+    private MinibusStop minibusStop;
+
+    private Journey journey;
+
+    @Before
+    @Transactional
+    public void initTest() {
+        Journey journey = new Journey();
+        journey.setDestiny("Buenos Aires");
+        journey.setOrigin("La Plata");
+        this.reservationDAO.saveOrUpdate(journey);
+        this.journey = journey;
+
+        Minibus minibus = new Minibus();
+        minibus.setLicensePlate("DTK-177");
+        minibus.setBrand("Peugeot");
+        minibus.setModel("Boxer");
+        minibus.setTotalSeats(40);
+        this.reservationDAO.saveOrUpdate(minibus);
+        this.minibus = minibus;
+
+        MinibusStop minibusStop = new MinibusStop();
+        minibusStop.setCity("La Plata");
+        minibusStop.setStreet("Av 7");
+        minibusStop.setStreetNumber("1100");
+        minibusStop.setCity("La Plata");
+        this.reservationDAO.saveOrUpdate(minibusStop);
+        this.minibusStop = minibusStop;
+    }
 
     @Test
     @Transactional
@@ -43,6 +74,14 @@ public class PassengerFactoryTestCase {
         String passwordHash = BCrypt.hashpw(password,salt);
         passenger.setPasswordHash(passwordHash);
 
+        Ticket ticket = new Ticket();
+        ticket.setTicketSchedule(new Date());
+        ticket.setUsed(false);
+        ticket.setJourney(this.journey);
+        ticket.setMinibusStop(this.minibusStop);
+        ticket.setPassenger(passenger);
+
+        passenger.addTicket(ticket);
         this.passengerFactory.saveOrUpdate(passenger);
 
     }

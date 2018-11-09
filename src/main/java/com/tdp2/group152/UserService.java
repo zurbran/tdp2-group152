@@ -2,34 +2,28 @@ package com.tdp2.group152;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import javax.transaction.Transactional;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.helpers.AbstractMarshallerImpl;
+import java.util.List;
 
-public class PassengerService {
+public class UserService {
 
     @Autowired
     private PassengerDAO passengerDao;
 
-    public PassengerService(PassengerDAO passengerDao) {
+    public UserService(PassengerDAO passengerDao) {
         this.passengerDao = passengerDao;
     }
 
     @Transactional
-    public void savePassenger(Passenger p, String password) {
+    public void savePassenger(Passenger p, List<Ticket> tickets, String password) {
         String salt = BCrypt.gensalt();
         p.setSalt(salt);
         String passwordHash = BCrypt.hashpw(password,salt);
         p.setPasswordHash(passwordHash);
+        p.setTickets(tickets);
         this.passengerDao.saveOrUpdate(p);
     }
 
 
-    @Transactional
-    public void updatePassenger(Passenger p) {
-
-    }
 }

@@ -1,5 +1,7 @@
 package com.tdp2.group152;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,24 +10,24 @@ import java.util.Date;
 public class Ticket {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "id_pasaje")
     private Long ticketId;
 
     @Column(name = "horario")
     private Date ticketSchedule;
 
-    @Column(name = "pasajero_id_pasajero")
     @ManyToOne
-    private Passenger passenger;
-
-    @Column(name = "parada_id_parada")
-    @ManyToOne
+    @JoinColumn(name = "parada_id_parada", nullable = false)
     private MinibusStop minibusStop;
 
-    @Column(name = "viaje_id_viaje")
     @ManyToOne
+    @JoinColumn(name = "viaje_id_viaje", nullable = false)
     private Journey journey;
+
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "pasajero_id_pasajero")
+    private Passenger passenger;
 
     @Column(name = "used")
     private boolean isUsed;

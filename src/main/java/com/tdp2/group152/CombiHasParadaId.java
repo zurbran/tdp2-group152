@@ -2,56 +2,58 @@ package com.tdp2.group152;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class CombiHasParadaId implements Serializable {
 
-    @Column(name = "combi_id_combi")
-    private Long minibusId;
+    @ManyToOne
+    private Minibus minibus;
 
-    @Column(name = "parada_id_parada")
-    private Long minibusStopId;
+    @ManyToOne
+    private MinibusStop minibusStop;
 
     public CombiHasParadaId() {
     }
 
-    public CombiHasParadaId(Long minibusId, Long minibusStopId) {
-        this.minibusId = minibusId;
-        this.minibusStopId = minibusStopId;
+    public CombiHasParadaId(Minibus minibus, MinibusStop MinibusStop) {
+        this.minibus = minibus;
+        this.minibusStop = MinibusStop;
     }
 
-    public Long getMinibusId() {
-        return minibusId;
+    public Minibus getMinibus() {
+        return minibus;
     }
 
-    public void setMinibusId(Long minibusId) {
-        minibusId = minibusId;
+    public void setMinibus(Minibus minibus) {
+        this.minibus = minibus;
     }
 
-    public Long getminibusStopId() {
-        return minibusStopId;
+    public MinibusStop getMinibusStop() {
+        return this.minibusStop;
     }
 
-    public void setminibusStopId(Long minibusStopId) {
-        minibusStopId = minibusStopId;
+    public void setMinibusStop(MinibusStop minibusStop) {
+        this.minibusStop = minibusStop;
     }
 
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         CombiHasParadaId that = (CombiHasParadaId) o;
-        return Objects.equals(minibusId, that.minibusId) &&
-                Objects.equals(minibusStopId, that.minibusStopId);
+
+        if (minibus != null ? !minibus.equals(that.minibus) : that.minibus != null) return false;
+        if (minibusStop != null ? !minibusStop.equals(that.minibusStop) : that.minibusStop != null)
+            return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(minibusId, minibusStopId);
+        return Objects.hash(minibus, minibusStop);
     }
 }

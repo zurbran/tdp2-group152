@@ -18,7 +18,7 @@ import java.util.Objects;
 public class MinibusStop {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "id_parada")
     private int stopId;
 
@@ -29,20 +29,30 @@ public class MinibusStop {
     private String streetNumber;
 
     @NaturalId
-    @Column(name = "city")
+    @Column(name = "ciudad")
     private String city;
 
     @OneToMany(
-            mappedBy = "parada",
+            mappedBy = "id.minibusStop",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<CombiHasParada> stops = new ArrayList<>();
+    private List<CombiHasParada> stops;
+
+    @OneToMany(mappedBy = "ticketId")
+    List<Ticket> assignedTickets;
+
+    public MinibusStop(){
+        this.stops = new ArrayList<>();
+        this.assignedTickets = new ArrayList<>();
+    }
 
     public MinibusStop(String street, String streetNumber, String city) {
         this.street = street;
         this.streetNumber = streetNumber;
         this.city = city;
+        this.stops = new ArrayList<>();
+        this.assignedTickets = new ArrayList<>();
     }
 
     public int getStopId() {

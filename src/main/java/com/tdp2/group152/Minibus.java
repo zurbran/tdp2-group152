@@ -10,7 +10,7 @@ public class Minibus {
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
     @Column(name = "id_combi")
-    private Long minibuId;
+    private Long minibusId;
 
     @Column(name = "patente")
     private String licensePlate;
@@ -24,17 +24,19 @@ public class Minibus {
     @Column(name = "asientos")
     private int totalSeats;
 
-    @ManyToMany(mappedBy = "tickets")
-    private List<Journey> journeys = new ArrayList<>();
+    @ManyToMany
+    private List<Journey> journeys;
 
     @OneToMany(
-            mappedBy = "combi",
+            mappedBy = "id.minibus",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<CombiHasParada> stops = new ArrayList<>();
+    private List<CombiHasParada> stops;
 
     public Minibus() {
+        this.journeys = new ArrayList<>();
+        this.stops = new ArrayList<>();
     }
 
     public Minibus(String licensePlate, String model, String brand, int totalSeats) {
@@ -42,14 +44,16 @@ public class Minibus {
         this.model = model;
         this.brand = brand;
         this.totalSeats = totalSeats;
+        this.journeys = new ArrayList<>();
+        this.stops = new ArrayList<>();
     }
 
     public Long getMinibuId() {
-        return minibuId;
+        return minibusId;
     }
 
-    public void setMinibuId(Long minibuId) {
-        this.minibuId = minibuId;
+    public void setMinibuId(Long minibusId) {
+        this.minibusId = minibusId;
     }
 
     public String getLicensePlate() {

@@ -1,6 +1,8 @@
 package com.tdp2.group152;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "pasajero")
@@ -27,7 +29,11 @@ public class Passenger {
     @Column(name = "password_hash")
     private String passwordHash;
 
+    @OneToMany(mappedBy = "ticketId", cascade = {CascadeType.ALL, CascadeType.MERGE, CascadeType.PERSIST})
+    List<Ticket> tickets;
+
     public Passenger() {
+        tickets = new ArrayList<>();
     }
 
 
@@ -37,6 +43,7 @@ public class Passenger {
         this.name = name;
         this.surname = surname;
         this.email = email;
+        tickets = new ArrayList<>();
     }
 
 
@@ -93,5 +100,17 @@ public class Passenger {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public void addTicket(Ticket ticket) {
+        this.tickets.add(ticket);
     }
 }
