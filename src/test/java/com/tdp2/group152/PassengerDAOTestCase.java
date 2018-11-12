@@ -1,5 +1,7 @@
 package com.tdp2.group152;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
@@ -84,6 +86,20 @@ public class PassengerDAOTestCase {
         passenger.addTicket(ticket);
         this.passengerFactory.saveOrUpdate(passenger);
 
+        assertNotNull(passenger.getPassengerId());
+
+        CombiHasParada combiHasParada = new CombiHasParada();
+        combiHasParada.setMinibusStop(this.minibusStop);
+        combiHasParada.setMinibus(this.minibus);
+        combiHasParada.setJourney(this.journey);
+        combiHasParada.setPickUpTime(new Date());
+
+        this.minibus.addStop(combiHasParada);
+
+        this.reservationDAO.saveOrUpdate(minibus);
+
+        Minibus retrievedMinibus = this.reservationDAO.getMinibusById(this.minibus.getMinibusId());
+        assertEquals(this.journey.getJourneyId(),retrievedMinibus.getStops().get(0).getJourney().getJourneyId());
     }
 
     @Test

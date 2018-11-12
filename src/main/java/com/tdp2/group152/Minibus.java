@@ -24,8 +24,12 @@ public class Minibus {
     @Column(name = "asientos")
     private int totalSeats;
 
-    @ManyToMany
-    private List<Journey> journeys;
+//    @OneToMany(
+//            mappedBy = "id.minibus",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    private List<CombiHasViaje> journeys;
 
     @OneToMany(
             mappedBy = "id.minibus",
@@ -35,7 +39,7 @@ public class Minibus {
     private List<CombiHasParada> stops;
 
     public Minibus() {
-        this.journeys = new ArrayList<>();
+//        this.journeys = new ArrayList<>();
         this.stops = new ArrayList<>();
     }
 
@@ -44,15 +48,15 @@ public class Minibus {
         this.model = model;
         this.brand = brand;
         this.totalSeats = totalSeats;
-        this.journeys = new ArrayList<>();
+//        this.journeys = new ArrayList<>();
         this.stops = new ArrayList<>();
     }
 
-    public Long getMinibuId() {
+    public Long getMinibusId() {
         return minibusId;
     }
 
-    public void setMinibuId(Long minibusId) {
+    public void setMinibusId(Long minibusId) {
         this.minibusId = minibusId;
     }
 
@@ -96,11 +100,21 @@ public class Minibus {
         this.stops = stops;
     }
 
-    public List<Journey> getJourneys() {
-        return journeys;
+    public void addStop(CombiHasParada minibusHasStop) {
+        this.stops.add(minibusHasStop);
     }
 
-    public void setJourneys(List<Journey> journeys) {
-        this.journeys = journeys;
-    }
+//    public List<CombiHasViaje> getJourneys() {
+//        return journeys;
+//    }
+//
+//    public void setJourneys(List<CombiHasViaje> minibusHasJourney) {
+//        this.journeys = minibusHasJourney;
+//    }
+//
+//    public void addJourney(CombiHasViaje minibusHasJourney) {
+//        this.journeys.add(minibusHasJourney);
+//    }
+
+
 }

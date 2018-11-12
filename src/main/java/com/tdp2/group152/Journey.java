@@ -19,26 +19,25 @@ public class Journey {
     @Column(name="origen")
     private String origin;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "combi_has_viaje",
-            joinColumns = @JoinColumn(name = "viaje_id_viaje", insertable = false, updatable = false),
-            inverseJoinColumns = @JoinColumn(name = "combi_id_combi")
-    )
-    private List<Minibus> minibuses;
+//    @OneToMany(
+//            mappedBy = "id.journey",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    private List<CombiHasViaje> minibuses;
 
     @OneToMany(mappedBy = "ticketId")
     private List<Ticket> reservedTickets;
 
     public Journey() {
-        this.minibuses = new ArrayList<>();
+//        this.minibuses = new ArrayList<>();
         this.reservedTickets = new ArrayList<>();
     }
 
     public Journey(String destiny, String origin) {
         this.destiny = destiny;
         this.origin = origin;
-        this.minibuses = new ArrayList<>();
+//        this.minibuses = new ArrayList<>();
         this.reservedTickets = new ArrayList<>();
     }
 
@@ -66,13 +65,13 @@ public class Journey {
         this.origin = origin;
     }
 
-    public List<Minibus> getMinibuses() {
-        return minibuses;
-    }
-
-    public void setMinibuses(List<Minibus> minibuses) {
-        this.minibuses = minibuses;
-    }
+//    public List<CombiHasViaje> getMinibuses() {
+//        return minibuses;
+//    }
+//
+//    public void setMinibuses(List<CombiHasViaje> minibuses) {
+//        this.minibuses = minibuses;
+//    }
 
     public List<Ticket> getReservedTickets() {
         return reservedTickets;

@@ -16,18 +16,26 @@ public class CombiHasParada {
     @EmbeddedId
     private CombiHasParadaId id;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "hora", nullable = false)
     private Date pickUpTime;
 
+    @ManyToOne
+    @JoinColumn(name = "viaje_id_viaje")
+    private Journey journey;
+
     public CombiHasParada() {
+        this.id = new CombiHasParadaId();
     }
 
     public CombiHasParada(Minibus minibus, MinibusStop minibusStop) {
         this.id = new CombiHasParadaId();
     }
 
-    public CombiHasParada(CombiHasParadaId id, Minibus minibus, MinibusStop minibusStop, Date pickUpTime) {
+    public CombiHasParada(CombiHasParadaId id, Date pickUpTime, Journey journey) {
         this.id = id;
         this.pickUpTime = pickUpTime;
+        this.journey = journey;
     }
 
     public CombiHasParadaId getId() {
@@ -56,14 +64,20 @@ public class CombiHasParada {
         this.id.setMinibusStop(minibusStop);
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "hora", nullable = false)
     public Date getPickUpTime() {
         return pickUpTime;
     }
 
     public void setPickUpTime(Date pickUpTime) {
         this.pickUpTime = pickUpTime;
+    }
+
+    public Journey getJourney() {
+        return journey;
+    }
+
+    public void setJourney(Journey journey) {
+        this.journey = journey;
     }
 
     @Override

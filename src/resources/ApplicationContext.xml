@@ -34,6 +34,8 @@
                 <value>com.tdp2.group152.Journey</value>
                 <value>com.tdp2.group152.CombiHasParadaId</value>
                 <value>com.tdp2.group152.CombiHasParada</value>
+                <!--<value>com.tdp2.group152.CombiHasViajeId</value>-->
+                <!--<value>com.tdp2.group152.CombiHasViaje</value>-->
             </list>
         </property>
         <property name="hibernateProperties">

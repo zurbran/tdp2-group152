@@ -2,8 +2,9 @@ package com.tdp2.group152;
 
 import org.hibernate.SessionFactory;
 import javax.transaction.Transactional;
+import java.util.List;
 
-@Transactional
+
 public class ReservationDAO {
 
     private SessionFactory sessionFactory;
@@ -14,11 +15,6 @@ public class ReservationDAO {
 
     public void saveOrUpdate(MinibusStop ms) {
         this.sessionFactory.getCurrentSession().saveOrUpdate(ms);
-
-    }
-
-    public void saveOrUpdate(Ticket t) {
-        this.sessionFactory.getCurrentSession().saveOrUpdate(t);
 
     }
 
@@ -46,5 +42,35 @@ public class ReservationDAO {
 
     public void delete(Journey j) {
         this.sessionFactory.getCurrentSession().delete(j);
+    }
+
+    public Ticket getTicketById(Long id) {
+        return (Ticket) this.sessionFactory.getCurrentSession().createQuery("FROM Ticket t WHERE t.tickerId = :ticketId")
+                .setParameter("ticketId", id)
+                .uniqueResult();
+    }
+
+    public Minibus getMinibusById(Long id) {
+        return (Minibus) this.sessionFactory.getCurrentSession().createQuery("FROM Minibus  m WHERE m.minibusId = :minibusId")
+                .setParameter("minibusId", id)
+                .uniqueResult();
+    }
+
+    public MinibusStop getMinibusStopById(Long id) {
+        return (MinibusStop) this.sessionFactory.getCurrentSession().createQuery("FROM MinibusStop ms WHERE ms.stopId = :stopId")
+                .setParameter("stopId", id)
+                .uniqueResult();
+    }
+
+    public Journey getJourneyById(Long id) {
+        return (Journey) this.sessionFactory.getCurrentSession().createQuery("FROM Journey j WHERE j.journeyId = :journeyId")
+                .setParameter("journeyId", id)
+                .uniqueResult();
+    }
+
+    public List<Ticket> getAllTicketsFromJourney(Long journeyId) {
+        return (List<Ticket>) this.sessionFactory.getCurrentSession().createQuery("FROM Ticket t WHERE t.journey.journeyId = :journeyId")
+                .setParameter("journeyId", journeyId)
+                .getResultList();
     }
 }
