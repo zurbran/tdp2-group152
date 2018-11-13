@@ -1,13 +1,39 @@
 package com.tdp2.group152;
 
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.webapp.WebAppContext;
+import org.springframework.web.context.support.XmlWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Hello world!
  *
  */
 public class App 
 {
-    public static void main( String[] args )
+    private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+
+    public static void main( String[] args ) throws Exception
     {
-        System.out.println( "Hello World!" );
+        LOGGER.info("[main] Starting application ...");
+
+        DispatcherServlet dispatcherServlet = new DispatcherServlet();
+        dispatcherServlet.setContextClass(XmlWebApplicationContext.class);
+        dispatcherServlet.setContextConfigLocation("classpath:ApplicationContext.xml");
+
+        WebAppContext handler = new WebAppContext();
+        handler.addServlet(new ServletHolder(dispatcherServlet), "/decoder/*");
+        handler.setResourceBase("src/resources");
+        Server server = new Server(8080);
+
+        server.setHandler(handler);
+
+        server.start();
+        LOGGER.info("[main] Application started...");
+
+        server.join();
     }
 }

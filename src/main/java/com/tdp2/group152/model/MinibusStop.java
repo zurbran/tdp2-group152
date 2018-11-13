@@ -1,4 +1,4 @@
-package com.tdp2.group152;
+package com.tdp2.group152.model;
 
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;

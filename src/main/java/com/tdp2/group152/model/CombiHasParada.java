@@ -1,8 +1,7 @@
-package com.tdp2.group152;
+package com.tdp2.group152.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity(name = "CombiHasParada")
 @Table(name = "combi_has_parada")

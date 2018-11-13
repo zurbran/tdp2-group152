@@ -1,9 +1,11 @@
-package com.tdp2.group152;
+package com.tdp2.group152.services;
 
+import com.tdp2.group152.DAOs.PassengerDAO;
+import com.tdp2.group152.model.Ticket;
+import com.tdp2.group152.model.Passenger;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 public class UserService {
 

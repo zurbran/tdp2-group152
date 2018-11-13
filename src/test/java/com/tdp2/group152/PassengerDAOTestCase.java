@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import com.tdp2.group152.DAOs.PassengerDAO;
+import com.tdp2.group152.DAOs.ReservationDAO;
+import com.tdp2.group152.model.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

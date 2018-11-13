@@ -12,7 +12,7 @@
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost/group152"/>
+        <property name="url" value="jdbc:mysql://localhost/group152?useSSL=false"/>
         <property name="username" value="root"/>
         <property name="password" value=""/>
         <property name="testOnBorrow" value="true"/>
@@ -27,15 +27,15 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="annotatedClasses">
             <list>
-                <value>com.tdp2.group152.Passenger</value>
-                <value>com.tdp2.group152.Ticket</value>
-                <value>com.tdp2.group152.MinibusStop</value>
-                <value>com.tdp2.group152.Minibus</value>
-                <value>com.tdp2.group152.Journey</value>
-                <value>com.tdp2.group152.CombiHasParadaId</value>
-                <value>com.tdp2.group152.CombiHasParada</value>
-                <!--<value>com.tdp2.group152.CombiHasViajeId</value>-->
-                <!--<value>com.tdp2.group152.CombiHasViaje</value>-->
+                <value>com.tdp2.group152.model.Passenger</value>
+                <value>com.tdp2.group152.model.Ticket</value>
+                <value>com.tdp2.group152.model.MinibusStop</value>
+                <value>com.tdp2.group152.model.Minibus</value>
+                <value>com.tdp2.group152.model.Journey</value>
+                <value>com.tdp2.group152.model.CombiHasParadaId</value>
+                <value>com.tdp2.group152.model.CombiHasParada</value>
+                <!--<value>com.tdp2.group152.model.CombiHasViajeId</value>-->
+                <!--<value>com.tdp2.group152.model.CombiHasViaje</value>-->
             </list>
         </property>
         <property name="hibernateProperties">
@@ -46,15 +46,15 @@
         </property>
     </bean>
 
-    <bean id="userService" class="com.tdp2.group152.UserService">
+    <bean id="userService" class="com.tdp2.group152.services.UserService">
         <constructor-arg name="passengerDao" ref="passengerDAO"/>
     </bean>
 
-    <bean id="passengerDAO" class="com.tdp2.group152.PassengerDAO">
+    <bean id="passengerDAO" class="com.tdp2.group152.DAOs.PassengerDAO">
         <constructor-arg name="sessionFactory" ref="hibernateSessionFactory"/>
     </bean>
 
-    <bean id="reservationDAO" class="com.tdp2.group152.ReservationDAO">
+    <bean id="reservationDAO" class="com.tdp2.group152.DAOs.ReservationDAO">
         <constructor-arg name="sessionFactory" ref="hibernateSessionFactory"/>
     </bean>
 

@@ -1,8 +1,7 @@
-package com.tdp2.group152;
+package com.tdp2.group152.DAOs;
 
+import com.tdp2.group152.model.Passenger;
 import org.hibernate.SessionFactory;
-
-import javax.transaction.Transactional;
 
 
 public class PassengerDAO {

@@ -1,6 +1,8 @@
-package com.tdp2.group152;
+package com.tdp2.group152.model;
 
-import org.hibernate.annotations.Cascade;
+import com.tdp2.group152.model.Journey;
+import com.tdp2.group152.model.MinibusStop;
+import com.tdp2.group152.model.Passenger;
 
 import javax.persistence.*;
 import java.util.Date;

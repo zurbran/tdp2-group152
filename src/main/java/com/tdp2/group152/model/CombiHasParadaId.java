@@ -1,6 +1,5 @@
-package com.tdp2.group152;
+package com.tdp2.group152.model;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;

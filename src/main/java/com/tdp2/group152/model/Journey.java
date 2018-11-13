@@ -1,4 +1,4 @@
-package com.tdp2.group152;
+package com.tdp2.group152.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;

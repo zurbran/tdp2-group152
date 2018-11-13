@@ -1,6 +1,6 @@
-package com.tdp2.group152;
+package com.tdp2.group152.services;
 
-import javax.transaction.Transactional;
+import com.tdp2.group152.DAOs.ReservationDAO;
 
 public class ReservationService {
 

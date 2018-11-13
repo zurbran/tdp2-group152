@@ -14,6 +14,11 @@
 
     </Appenders>
     <Loggers>
+        <!-- Log everything in App -->
+        <Logger name="com.tdp2.group152.App" level="info" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
+
         <!-- Log everything in hibernate -->
         <Logger name="org.hibernate" level="info" additivity="false">
             <AppenderRef ref="Console" />
@@ -37,7 +42,7 @@
             <AppenderRef ref="File" />
         </Logger>
 
-        <Root level="error">
+        <Root level="info">
             <AppenderRef ref="Console" />
             <AppenderRef ref="File" />
         </Root>
