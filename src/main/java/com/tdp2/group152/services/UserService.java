@@ -1,8 +1,7 @@
 package com.tdp2.group152.services;
 
 import com.tdp2.group152.DAOs.PassengerDAO;
-import com.tdp2.group152.model.Ticket;
-import com.tdp2.group152.model.Passenger;
+import com.tdp2.group152.model.*;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.transaction.Transactional;
@@ -10,10 +9,12 @@ import javax.transaction.Transactional;
 public class UserService {
 
     private PassengerDAO passengerDao;
+    private ReservationService reservationService;
 
 
-    public UserService(PassengerDAO passengerDao) {
+    public UserService(PassengerDAO passengerDao, ReservationService reservationService) {
         this.passengerDao = passengerDao;
+        this.reservationService = reservationService;
     }
 
     @Transactional
@@ -26,7 +27,7 @@ public class UserService {
     }
 
     @Transactional
-    public void generateTicket(Passenger p, Ticket t) {
+    public void generateTicket(Passenger passenger, Minibus minibus, MinibusStop minibusStop, Journey journey) {
 
     }
 

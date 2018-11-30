@@ -1,6 +1,7 @@
 package com.tdp2.group152.model;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,25 +20,21 @@ public class Journey {
     @Column(name="origen")
     private String origin;
 
-//    @OneToMany(
-//            mappedBy = "id.journey",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
-//    )
-//    private List<CombiHasViaje> minibuses;
+    @Column(name = "horario_salida")
+    private LocalTime departureTime;
+
 
     @OneToMany(mappedBy = "ticketId")
     private List<Ticket> reservedTickets;
 
     public Journey() {
-//        this.minibuses = new ArrayList<>();
         this.reservedTickets = new ArrayList<>();
     }
 
-    public Journey(String destiny, String origin) {
+    public Journey(String destiny, String origin, LocalTime departureTime) {
         this.destiny = destiny;
         this.origin = origin;
-//        this.minibuses = new ArrayList<>();
+        this.departureTime = departureTime;
         this.reservedTickets = new ArrayList<>();
     }
 
@@ -65,19 +62,19 @@ public class Journey {
         this.origin = origin;
     }
 
-//    public List<CombiHasViaje> getMinibuses() {
-//        return minibuses;
-//    }
-//
-//    public void setMinibuses(List<CombiHasViaje> minibuses) {
-//        this.minibuses = minibuses;
-//    }
-
     public List<Ticket> getReservedTickets() {
         return reservedTickets;
     }
 
     public void setReservedTickets(List<Ticket> reservedTickets) {
         this.reservedTickets = reservedTickets;
+    }
+
+    public LocalTime getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(LocalTime departureTime) {
+        this.departureTime = departureTime;
     }
 }

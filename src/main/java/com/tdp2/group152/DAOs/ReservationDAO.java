@@ -6,6 +6,7 @@ import com.tdp2.group152.model.Minibus;
 import com.tdp2.group152.model.MinibusStop;
 import org.hibernate.SessionFactory;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -72,9 +73,37 @@ public class ReservationDAO {
                 .uniqueResult();
     }
 
-    public List<Ticket> getAllTicketsFromJourney(Long journeyId) {
+    public List<Ticket> getAllTicketsFromJourney(Long journeyId, Date date) {
         return (List<Ticket>) this.sessionFactory.getCurrentSession().createQuery("FROM Ticket t WHERE t.journey.journeyId = :journeyId")
                 .setParameter("journeyId", journeyId)
                 .getResultList();
     }
+
+    public Minibus getMinibusOfJourney(Long journeyId) {
+        return (Minibus) this.sessionFactory.getCurrentSession().createQuery("FROM Combi c WHERE c IN (FROM CombiHasParada chp WHERE chp.journey = :journeyId)")
+                .setParameter("journeyId", journeyId)
+                .uniqueResult();
+    }
+
+    public List<MinibusStop> getMinibusStopsForJourney(Long journeyId, Date date) {
+        return (List<MinibusStop>) this.sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT id.minibusStop FROM CombiHasParada chp WHERE chp.journey.journeyId = :journeyId AND year(chp.pickUpTime) = year(:date) AND day(chp.pickUpTime) = day(:date)")
+                .setParameter("journeyId", journeyId)
+                .setParameter("date", date)
+                .getResultList();
+    }
+
+    public List<Journey> getJourneysForDate(Date date) {
+        return (List<Journey>) this.sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT journey FROM CombiHasParada chp WHERE year(chp.pickUpTime) = year(:date) AND day(chp.pickUpTime) = day(:date)")
+                .setParameter("date", date)
+                .getResultList();
+    }
+
+    public List<Minibus> getMinibusesFromJourneyAndDate(Date date, Journey journey){
+        return   (List<Minibus>) this.sessionFactory.getCurrentSession().createQuery("SELECT  id.minibus FROM CombiHasParada chp  WHERE chp.journey.origin = :origen AND chp.journey.destiny = :destino AND year(chp.pickUpTime) = year(:date) AND day(chp.pickUpTime) = day(:date) AND month(chp.pickUpTime) = month(:date)")
+                .setParameter("origen", journey.getOrigin())
+                .setParameter("destino", journey.getDestiny())
+                .setParameter("date", date)
+                .getResultList();
+    }
+
 }
