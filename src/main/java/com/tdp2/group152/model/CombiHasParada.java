@@ -9,19 +9,13 @@ import java.util.Date;
         @AssociationOverride(name = "id.minibus",
                 joinColumns = @JoinColumn(name = "combi_id_combi")),
         @AssociationOverride(name = "id.minibusStop",
-                joinColumns = @JoinColumn(name = "parada_id_parada")) })
+                joinColumns = @JoinColumn(name = "parada_id_parada")),
+        @AssociationOverride(name = "id.journey",
+                joinColumns = @JoinColumn(name = "viaje_id_viaje"))})
 public class CombiHasParada {
 
     @EmbeddedId
     private CombiHasParadaId id;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "hora", nullable = false)
-    private Date pickUpTime;
-
-    @ManyToOne
-    @JoinColumn(name = "viaje_id_viaje")
-    private Journey journey;
 
     public CombiHasParada() {
         this.id = new CombiHasParadaId();
@@ -31,10 +25,8 @@ public class CombiHasParada {
         this.id = new CombiHasParadaId();
     }
 
-    public CombiHasParada(CombiHasParadaId id, Date pickUpTime, Journey journey) {
+    public CombiHasParada(CombiHasParadaId id, Journey journey) {
         this.id = id;
-        this.pickUpTime = pickUpTime;
-        this.journey = journey;
     }
 
     public CombiHasParadaId getId() {
@@ -64,19 +56,19 @@ public class CombiHasParada {
     }
 
     public Date getPickUpTime() {
-        return pickUpTime;
+        return this.id.getPickUpTime();
     }
 
     public void setPickUpTime(Date pickUpTime) {
-        this.pickUpTime = pickUpTime;
+        this.id.setPickUpTime(pickUpTime);
     }
 
     public Journey getJourney() {
-        return journey;
+        return this.id.getJourney();
     }
 
     public void setJourney(Journey journey) {
-        this.journey = journey;
+        this.id.setJourney(journey);
     }
 
     @Override

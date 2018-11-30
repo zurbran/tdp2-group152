@@ -80,7 +80,7 @@ public class ReservationDAO {
     }
 
     public Minibus getMinibusOfJourney(Long journeyId) {
-        return (Minibus) this.sessionFactory.getCurrentSession().createQuery("FROM Combi c WHERE c IN (FROM CombiHasParada chp WHERE chp.journey = :journeyId)")
+        return (Minibus) this.sessionFactory.getCurrentSession().createQuery("FROM Minibus m WHERE m IN (SELECT chp.id.minibus FROM CombiHasParada chp WHERE chp.id.journey.journeyId = :journeyId)")
                 .setParameter("journeyId", journeyId)
                 .uniqueResult();
     }

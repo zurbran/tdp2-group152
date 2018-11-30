@@ -24,7 +24,7 @@ public class Journey {
     private LocalTime departureTime;
 
 
-    @OneToMany(mappedBy = "ticketId")
+    @OneToMany(mappedBy = "journey")
     private List<Ticket> reservedTickets;
 
     public Journey() {
