@@ -73,36 +73,17 @@ public class ReservationDAO {
                 .uniqueResult();
     }
 
-    public List<Ticket> getAllTicketsFromJourney(Long journeyId, Date date) {
-        return (List<Ticket>) this.sessionFactory.getCurrentSession().createQuery("FROM Ticket t WHERE t.journey.journeyId = :journeyId")
-                .setParameter("journeyId", journeyId)
-                .getResultList();
-    }
-
-    public Minibus getMinibusOfJourney(Long journeyId) {
-        return (Minibus) this.sessionFactory.getCurrentSession().createQuery("FROM Minibus m WHERE m IN (SELECT chp.id.minibus FROM CombiHasParada chp WHERE chp.id.journey.journeyId = :journeyId)")
-                .setParameter("journeyId", journeyId)
-                .uniqueResult();
-    }
-
-    public List<MinibusStop> getMinibusStopsForJourney(Long journeyId, Date date) {
-        return (List<MinibusStop>) this.sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT id.minibusStop FROM CombiHasParada chp WHERE chp.journey.journeyId = :journeyId AND year(chp.pickUpTime) = year(:date) AND day(chp.pickUpTime) = day(:date)")
-                .setParameter("journeyId", journeyId)
-                .setParameter("date", date)
-                .getResultList();
-    }
-
     public List<Journey> getJourneysForDate(Date date) {
-        return (List<Journey>) this.sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT journey FROM CombiHasParada chp WHERE year(chp.pickUpTime) = year(:date) AND day(chp.pickUpTime) = day(:date)")
+        return (List<Journey>) this.sessionFactory.getCurrentSession().createQuery("FROM Journey j WHERE year(j.departureTime) = year(:date) AND month(j.departureTime) = month(:date) AND day(j.departureTime) = day(:date)")
                 .setParameter("date", date)
                 .getResultList();
     }
 
-    public List<Minibus> getMinibusesFromJourneyAndDate(Date date, Journey journey){
-        return   (List<Minibus>) this.sessionFactory.getCurrentSession().createQuery("SELECT  id.minibus FROM CombiHasParada chp  WHERE chp.journey.origin = :origen AND chp.journey.destiny = :destino AND year(chp.pickUpTime) = year(:date) AND day(chp.pickUpTime) = day(:date) AND month(chp.pickUpTime) = month(:date)")
-                .setParameter("origen", journey.getOrigin())
-                .setParameter("destino", journey.getDestiny())
+    public List<Journey> getJourneysForDate(Journey journey,Date date) {
+        return (List<Journey>) this.sessionFactory.getCurrentSession().createQuery("FROM Journey j WHERE j.destiny = :destiny AND j.origin = :origin AND year(j.departureTime) = year(:date) AND month(j.departureTime) = month(:date) AND day(j.departureTime) = day(:date)")
                 .setParameter("date", date)
+                .setParameter("destiny", journey.getDestiny())
+                .setParameter("origin", journey.getOrigin())
                 .getResultList();
     }
 
