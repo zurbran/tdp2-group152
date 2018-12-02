@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.*;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -23,7 +24,7 @@ import org.mindrot.jbcrypt.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:ApplicationContext.xml")
-//@Rollback
+@Rollback
 public class PassengerDAOTestCase {
 
     @Autowired
@@ -78,7 +79,7 @@ public class PassengerDAOTestCase {
         Journey journey = new Journey();
         journey.setDestiny("Buenos Aires");
         journey.setOrigin("La Plata");
-        journey.setDepartureTime(new Date(LocalTime.now().plusHours(4).toNanoOfDay()));
+        journey.setDepartureTime(new Date((new Date()).getTime() + 3600000));
         journey.setMinibus(minibus);
         this.reservationDAO.saveOrUpdate(journey);
         this.journey = journey;
@@ -86,7 +87,7 @@ public class PassengerDAOTestCase {
         Journey journey2 = new Journey();
         journey2.setDestiny("Buenos Aires");
         journey2.setOrigin("La Plata");
-        journey2.setDepartureTime(new Date(LocalTime.now().plusHours(6).toNanoOfDay()));
+        journey2.setDepartureTime(new Date((new Date()).getTime() + 3600000*2));
         journey2.setMinibus(minibus2);
         this.reservationDAO.saveOrUpdate(journey2);
         this.journey2 = journey2;
@@ -94,7 +95,7 @@ public class PassengerDAOTestCase {
         Journey journey3 = new Journey();
         journey3.setDestiny("Buenos Aires");
         journey3.setOrigin("La Plata");
-        journey3.setDepartureTime(new Date(LocalTime.now().plusHours(8).toNanoOfDay()));
+        journey3.setDepartureTime(new Date((new Date()).getTime() + 3600000*3));
         journey3.setMinibus(minibus3);
         this.reservationDAO.saveOrUpdate(journey3);
         this.journey3 = journey3;
@@ -102,7 +103,7 @@ public class PassengerDAOTestCase {
         Journey journey4 = new Journey();
         journey4.setDestiny("Buenos Aires");
         journey4.setOrigin("La Plata");
-        journey4.setDepartureTime(new Date(LocalTime.now().plusHours(10).toNanoOfDay()));
+        journey4.setDepartureTime(new Date((new Date()).getTime() + 3600000*4));
         journey4.setMinibus(minibus);
         this.reservationDAO.saveOrUpdate(journey4);
         this.journey4 = journey4;
@@ -133,7 +134,7 @@ public class PassengerDAOTestCase {
     }
 
     @Test
-//    @Transactional
+    @Transactional
     public void testSavePassenger() throws NoSuchAlgorithmException {
         Passenger passenger = new Passenger();
         passenger.setDni("38468109");

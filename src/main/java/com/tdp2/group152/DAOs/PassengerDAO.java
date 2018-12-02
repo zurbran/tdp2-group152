@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 
 import javax.transaction.Transactional;
 
-@Transactional
 public class PassengerDAO {
 
     private SessionFactory sessionFactory;

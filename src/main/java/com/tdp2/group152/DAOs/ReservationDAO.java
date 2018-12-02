@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
-@Transactional
 public class ReservationDAO {
 
     private SessionFactory sessionFactory;
