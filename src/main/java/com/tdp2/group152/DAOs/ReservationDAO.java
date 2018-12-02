@@ -6,10 +6,11 @@ import com.tdp2.group152.model.Minibus;
 import com.tdp2.group152.model.MinibusStop;
 import org.hibernate.SessionFactory;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
-
+@Transactional
 public class ReservationDAO {
 
     private SessionFactory sessionFactory;

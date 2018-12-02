@@ -29,13 +29,8 @@ public class Passenger {
     @Column(name = "password_hash")
     private String passwordHash;
 
-    @OneToMany(mappedBy = "ticketId", cascade = {CascadeType.ALL, CascadeType.MERGE, CascadeType.PERSIST})
-    List<Ticket> tickets;
-
     public Passenger() {
-        tickets = new ArrayList<>();
     }
-
 
     public Passenger(Long passengerId, String dni, String name, String surname, String email) {
         this.passengerId = passengerId;
@@ -43,7 +38,6 @@ public class Passenger {
         this.name = name;
         this.surname = surname;
         this.email = email;
-        tickets = new ArrayList<>();
     }
 
 
@@ -102,15 +96,4 @@ public class Passenger {
         this.passwordHash = passwordHash;
     }
 
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    public void addTicket(Ticket ticket) {
-        this.tickets.add(ticket);
-    }
 }

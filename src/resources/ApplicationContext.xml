@@ -32,10 +32,11 @@
                 <value>com.tdp2.group152.model.MinibusStop</value>
                 <value>com.tdp2.group152.model.Minibus</value>
                 <value>com.tdp2.group152.model.Journey</value>
-                <value>com.tdp2.group152.model.CombiHasParadaId</value>
-                <value>com.tdp2.group152.model.CombiHasParada</value>
-                <!--<value>com.tdp2.group152.model.CombiHasViajeId</value>-->
-                <!--<value>com.tdp2.group152.model.CombiHasViaje</value>-->
+                <!--<value>com.tdp2.group152.model.CombiHasParadaId</value>-->
+                <!--<value>com.tdp2.group152.model.CombiHasParada</value>-->
+                <value>com.tdp2.group152.model.ViajeHasParada</value>
+                <value>com.tdp2.group152.model.ViajeHasParadaId</value>
+
             </list>
         </property>
         <property name="hibernateProperties">

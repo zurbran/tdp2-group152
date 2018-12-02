@@ -16,18 +16,15 @@ public class Ticket {
     @Column(name = "id_pasaje")
     private Long ticketId;
 
-    @Column(name = "horario")
-    private Date ticketSchedule;
-
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "parada_id_parada", nullable = false)
     private MinibusStop minibusStop;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "viaje_id_viaje", nullable = false)
     private Journey journey;
 
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pasajero_id_pasajero")
     private Passenger passenger;
 
@@ -37,11 +34,10 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(Date ticketSchedule, Passenger passenger, MinibusStop minibusStop, Journey journey, boolean isUsed) {
-        this.ticketSchedule = ticketSchedule;
-        this.passenger = passenger;
+    public Ticket(Date ticketSchedule, MinibusStop minibusStop, Journey journey, Passenger passenger, boolean isUsed) {
         this.minibusStop = minibusStop;
         this.journey = journey;
+        this.passenger = passenger;
         this.isUsed = isUsed;
     }
 
@@ -51,14 +47,6 @@ public class Ticket {
 
     public void setTicketId(Long ticketId) {
         this.ticketId = ticketId;
-    }
-
-    public Date getTicketSchedule() {
-        return ticketSchedule;
-    }
-
-    public void setTicketSchedule(Date ticketSchedule) {
-        this.ticketSchedule = ticketSchedule;
     }
 
     public Passenger getPassenger() {
@@ -92,4 +80,5 @@ public class Ticket {
     public void setUsed(boolean used) {
         isUsed = used;
     }
+
 }

@@ -3,7 +3,9 @@ package com.tdp2.group152.DAOs;
 import com.tdp2.group152.model.Passenger;
 import org.hibernate.SessionFactory;
 
+import javax.transaction.Transactional;
 
+@Transactional
 public class PassengerDAO {
 
     private SessionFactory sessionFactory;

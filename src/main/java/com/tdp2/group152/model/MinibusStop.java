@@ -20,7 +20,7 @@ public class MinibusStop {
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "id_parada")
-    private int stopId;
+    private Long stopId;
 
     @Column(name = "calle")
     private String street;
@@ -28,38 +28,23 @@ public class MinibusStop {
     @Column(name = "numero")
     private String streetNumber;
 
-    @NaturalId
     @Column(name = "ciudad")
     private String city;
 
-    @OneToMany(
-            mappedBy = "id.minibusStop",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<CombiHasParada> stops;
-
-    @OneToMany(mappedBy = "ticketId")
-    List<Ticket> assignedTickets;
-
     public MinibusStop(){
-        this.stops = new ArrayList<>();
-        this.assignedTickets = new ArrayList<>();
     }
 
     public MinibusStop(String street, String streetNumber, String city) {
         this.street = street;
         this.streetNumber = streetNumber;
         this.city = city;
-        this.stops = new ArrayList<>();
-        this.assignedTickets = new ArrayList<>();
     }
 
-    public int getStopId() {
+    public Long getStopId() {
         return stopId;
     }
 
-    public void setStopId(int stopId) {
+    public void setStopId(Long stopId) {
         this.stopId = stopId;
     }
 
@@ -87,29 +72,14 @@ public class MinibusStop {
         this.city = city;
     }
 
-    public void addStopsToMinibus(Minibus minibus){
-        CombiHasParada combiHasParada = new CombiHasParada(minibus,this);
-        this.stops.add(combiHasParada);
-        minibus.getStops().add(combiHasParada);
-    }
-
-    public void removeStopToMinibus(Minibus minibus) {
-        for(CombiHasParada c : this.stops) {
-            if(c.equals(this) && c.equals(minibus)) {
-                this.stops.remove(c);
-                c.getMinibus().getStops().remove(c);
-                c.setMinibus(null);
-                c.setMinibusStop(null);
-            }
-        }
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MinibusStop tag = (MinibusStop) o;
-        return Objects.equals(stopId, tag.stopId);
+    public boolean equals(Object object) {
+        if (object instanceof MinibusStop) {
+            MinibusStop minibusStop = (MinibusStop) object;
+            return stopId == minibusStop.getStopId();
+        } else {
+            return false;
+        }
     }
 
     @Override
