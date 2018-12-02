@@ -1,4 +1,4 @@
-package com.tdp2.group152.model;
+package com.tdp2.group152.models;
 
 import javax.persistence.*;
 import java.time.LocalTime;
@@ -62,7 +62,7 @@ public class ViajeHasParada {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if(o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         ViajeHasParada that = (ViajeHasParada) o;
         return Objects.equals(journey, that.journey) && Objects.equals(stop, that.stop);
     }

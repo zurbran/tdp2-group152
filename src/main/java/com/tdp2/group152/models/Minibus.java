@@ -1,14 +1,12 @@
-package com.tdp2.group152.model;
+package com.tdp2.group152.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "combi")
 public class Minibus {
     @Id
-    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "id_combi")
     private Long minibusId;
 
@@ -94,7 +92,6 @@ public class Minibus {
 //    public void addStop(CombiHasParada minibusHasStop) {
 //        this.stops.add(minibusHasStop);
 //    }
-
 
 
 }

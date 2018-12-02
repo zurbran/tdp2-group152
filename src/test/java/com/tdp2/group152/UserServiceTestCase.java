@@ -1,7 +1,5 @@
 package com.tdp2.group152;
 
-import static org.junit.Assert.assertNull;
-
 import com.tdp2.group152.services.UserService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

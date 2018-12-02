@@ -1,26 +1,24 @@
 package com.tdp2.group152;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 import com.tdp2.group152.DAOs.PassengerDAO;
 import com.tdp2.group152.DAOs.ReservationDAO;
-import com.tdp2.group152.model.*;
+import com.tdp2.group152.models.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.*;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
-import org.mindrot.jbcrypt.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:ApplicationContext.xml")
@@ -87,7 +85,7 @@ public class PassengerDAOTestCase {
         Journey journey2 = new Journey();
         journey2.setDestiny("Buenos Aires");
         journey2.setOrigin("La Plata");
-        journey2.setDepartureTime(new Date((new Date()).getTime() + 3600000*2));
+        journey2.setDepartureTime(new Date((new Date()).getTime() + 3600000 * 2));
         journey2.setMinibus(minibus2);
         this.reservationDAO.saveOrUpdate(journey2);
         this.journey2 = journey2;
@@ -95,7 +93,7 @@ public class PassengerDAOTestCase {
         Journey journey3 = new Journey();
         journey3.setDestiny("Buenos Aires");
         journey3.setOrigin("La Plata");
-        journey3.setDepartureTime(new Date((new Date()).getTime() + 3600000*3));
+        journey3.setDepartureTime(new Date((new Date()).getTime() + 3600000 * 3));
         journey3.setMinibus(minibus3);
         this.reservationDAO.saveOrUpdate(journey3);
         this.journey3 = journey3;
@@ -103,7 +101,7 @@ public class PassengerDAOTestCase {
         Journey journey4 = new Journey();
         journey4.setDestiny("Buenos Aires");
         journey4.setOrigin("La Plata");
-        journey4.setDepartureTime(new Date((new Date()).getTime() + 3600000*4));
+        journey4.setDepartureTime(new Date((new Date()).getTime() + 3600000 * 4));
         journey4.setMinibus(minibus);
         this.reservationDAO.saveOrUpdate(journey4);
         this.journey4 = journey4;
@@ -138,13 +136,13 @@ public class PassengerDAOTestCase {
     public void testSavePassenger() throws NoSuchAlgorithmException {
         Passenger passenger = new Passenger();
         passenger.setDni("38468109");
-        String password="asdasd";
+        String password = "asdasd";
         passenger.setName("Brandon");
         passenger.setSurname("Russell");
         passenger.setEmail("asd@asd.com");
         String salt = BCrypt.gensalt();
         passenger.setSalt(salt);
-        String passwordHash = BCrypt.hashpw(password,salt);
+        String passwordHash = BCrypt.hashpw(password, salt);
         passenger.setPasswordHash(passwordHash);
 
         this.passengerFactory.saveOrUpdate(passenger);
@@ -170,13 +168,13 @@ public class PassengerDAOTestCase {
     public void testDeletePassenger() throws NoSuchAlgorithmException {
         Passenger passenger = new Passenger();
         passenger.setDni("38468109");
-        String password="asdasd";
+        String password = "asdasd";
         passenger.setName("Brandon");
         passenger.setSurname("Russell");
         passenger.setEmail("asd@asd.com");
         String salt = BCrypt.gensalt();
         passenger.setSalt(salt);
-        String passwordHash = BCrypt.hashpw(password,salt);
+        String passwordHash = BCrypt.hashpw(password, salt);
         passenger.setPasswordHash(passwordHash);
 
         this.passengerFactory.saveOrUpdate(passenger);

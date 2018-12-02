@@ -1,15 +1,13 @@
 package com.tdp2.group152.DAOs;
 
-import com.tdp2.group152.model.Passenger;
+import com.tdp2.group152.models.Passenger;
 import org.hibernate.SessionFactory;
-
-import javax.transaction.Transactional;
 
 public class PassengerDAO {
 
     private SessionFactory sessionFactory;
 
-    public PassengerDAO(SessionFactory sessionFactory){
+    public PassengerDAO(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -24,7 +22,7 @@ public class PassengerDAO {
 
     public Passenger getPassengerById(Long id) {
         return (Passenger) this.sessionFactory.getCurrentSession().createQuery("FROM Passenger p WHERE p.passengerId= :id")
-                .setParameter("id",id)
+                .setParameter("id", id)
                 .uniqueResult();
     }
 

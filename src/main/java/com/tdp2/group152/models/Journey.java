@@ -1,6 +1,4 @@
-package com.tdp2.group152.model;
-
-import org.hibernate.annotations.Fetch;
+package com.tdp2.group152.models;
 
 import javax.persistence.*;
 import java.time.LocalTime;
@@ -17,10 +15,10 @@ public class Journey {
     @Column(name = "id_viaje")
     private Long journeyId;
 
-    @Column(name ="destino")
+    @Column(name = "destino")
     private String destiny;
 
-    @Column(name="origen")
+    @Column(name = "origen")
     private String origin;
 
     @Column(name = "fecha")
@@ -30,7 +28,7 @@ public class Journey {
     @JoinColumn(name = "combi_id_combi")
     private Minibus minibus;
 
-    @OneToMany(mappedBy = "journey" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "journey", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ticket> reservedTickets;
 
     @OneToMany(mappedBy = "journey", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -118,6 +116,10 @@ public class Journey {
         } else {
             return false;
         }
+    }
+
+    public boolean hasAvailability() {
+        return this.getReservedTickets().size() < this.getMinibus().getTotalSeats();
     }
 
 }

@@ -1,12 +1,9 @@
-package com.tdp2.group152.model;
+package com.tdp2.group152.models;
 
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -31,7 +28,7 @@ public class MinibusStop {
     @Column(name = "ciudad")
     private String city;
 
-    public MinibusStop(){
+    public MinibusStop() {
     }
 
     public MinibusStop(String street, String streetNumber, String city) {

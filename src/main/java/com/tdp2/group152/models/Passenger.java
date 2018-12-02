@@ -1,13 +1,12 @@
-package com.tdp2.group152.model;
+package com.tdp2.group152.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "pasajero")
 public class Passenger {
-    @Id @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY )
+    @Id
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "id_pasajero")
     private Long passengerId;
 
@@ -80,6 +79,7 @@ public class Passenger {
     public void setEmail(String email) {
         this.email = email;
     }
+
     public String getSalt() {
         return salt;
     }

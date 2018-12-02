@@ -1,11 +1,8 @@
-package com.tdp2.group152.model;
+package com.tdp2.group152.models;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
-import java.time.LocalTime;
 import java.util.Objects;
 
 @Embeddable
@@ -44,7 +41,7 @@ public class ViajeHasParadaId implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if(o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         ViajeHasParadaId that = (ViajeHasParadaId) o;
         return Objects.equals(journeyId, that.journeyId) && Objects.equals(minibusStopId, that.minibusStopId);
     }

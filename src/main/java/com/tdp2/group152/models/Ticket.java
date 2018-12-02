@@ -1,8 +1,4 @@
-package com.tdp2.group152.model;
-
-import com.tdp2.group152.model.Journey;
-import com.tdp2.group152.model.MinibusStop;
-import com.tdp2.group152.model.Passenger;
+package com.tdp2.group152.models;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,15 +12,15 @@ public class Ticket {
     @Column(name = "id_pasaje")
     private Long ticketId;
 
-    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "parada_id_parada", nullable = false)
     private MinibusStop minibusStop;
 
-    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "viaje_id_viaje", nullable = false)
     private Journey journey;
 
-    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pasajero_id_pasajero")
     private Passenger passenger;
 
