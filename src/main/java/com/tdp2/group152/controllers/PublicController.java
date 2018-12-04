@@ -63,6 +63,6 @@ public class PublicController extends SecuredController {
             @HeaderParam("email") String email,
             @HeaderParam("password") String password
     ) {
-
+        return true;
     }
 }

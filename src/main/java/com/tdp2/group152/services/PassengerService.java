@@ -56,6 +56,6 @@ public class PassengerService {
     public AuthorizationToken signIn(String email, String password) {
         Passenger passenger = this.passengerDao.getPassengerByEmail(email);
         String salt = passenger.getSalt();
-        
+        return null;
     }
 }
