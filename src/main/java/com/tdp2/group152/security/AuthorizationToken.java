@@ -1,10 +1,8 @@
 package com.tdp2.group152.security;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@Entity
 @Table(name = "auth_token")
 public class AuthorizationToken {
 
