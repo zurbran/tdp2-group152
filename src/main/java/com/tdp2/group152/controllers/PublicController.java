@@ -24,8 +24,7 @@ public class PublicController extends SecuredController {
     private ReservationService reservationService;
     private PassengerService passengerService;
 
-    public PublicController() {
-    }
+    public PublicController(){}
 
     public PublicController(ReservationService reservationService, PassengerService passengerService) {
         this.reservationService = reservationService;
