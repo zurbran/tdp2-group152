@@ -1,6 +1,7 @@
 package com.tdp2.group152.DAOs;
 
 import com.tdp2.group152.models.Passenger;
+import com.tdp2.group152.security.AuthorizationToken;
 import org.hibernate.SessionFactory;
 
 public class PassengerDAO {
@@ -23,6 +24,17 @@ public class PassengerDAO {
     public Passenger getPassengerById(Long id) {
         return (Passenger) this.sessionFactory.getCurrentSession().createQuery("FROM Passenger p WHERE p.passengerId= :id")
                 .setParameter("id", id)
+                .uniqueResult();
+    }
+
+    public void saveOrUpdate(AuthorizationToken token) {
+        this.sessionFactory.getCurrentSession().saveOrUpdate(token);
+    }
+
+    public AuthorizationToken getAuthTokenByTokenAndEmail(String email, String token) {
+        return (AuthorizationToken) this.sessionFactory.getCurrentSession().createQuery("FROM AuthorizationToken t WHERE t.token = :token AND t.email = :email")
+                .setParameter("email", email)
+                .setParameter("token", token)
                 .uniqueResult();
     }
 

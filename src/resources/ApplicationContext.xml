@@ -5,8 +5,9 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-
                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
     <!-- connection pool -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
           destroy-method="close">
@@ -33,6 +34,7 @@
                 <value>com.tdp2.group152.models.Journey</value>
                 <value>com.tdp2.group152.models.ViajeHasParada</value>
                 <value>com.tdp2.group152.models.ViajeHasParadaId</value>
+                <value>com.tdp2.group152.security.AuthorizationToken</value>
 
             </list>
         </property>
@@ -62,7 +64,7 @@
 
     <!-- Services -->
 
-    <bean id="userService" class="com.tdp2.group152.services.UserService">
+    <bean id="passengerService" class="com.tdp2.group152.services.PassengerService">
         <constructor-arg name="passengerDao" ref="passengerDAO"/>
         <constructor-arg name="reservationService" ref="reservationService"/>
     </bean>
@@ -74,10 +76,14 @@
     <!-- Controllers -->
 
     <bean id="publicController" class="com.tdp2.group152.controllers.PublicController">
-        <property name="reservationService" ref="reservationService"/>
+        <constructor-arg name="reservationService" ref="reservationService"/>
+        <constructor-arg name="passengerService" ref="passengerService"/>
     </bean>
 
     <bean id="exceptionControllerAdvice" class="com.tdp2.group152.controllers.ExceptionControllerAdvice">
     </bean>
+
+    <!--Security-->
+
 
 </beans>
