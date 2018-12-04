@@ -38,4 +38,9 @@ public class PassengerDAO {
                 .uniqueResult();
     }
 
+    public Passenger getPassengerByEmail(String email) {
+        return (Passenger) this.sessionFactory.getCurrentSession().createQuery("FROM Passenger p WHERE p.email = :email")
+                .setParameter("email", email)
+                .uniqueResult();
+    }
 }

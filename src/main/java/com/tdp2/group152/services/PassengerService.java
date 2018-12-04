@@ -2,6 +2,7 @@ package com.tdp2.group152.services;
 
 import com.tdp2.group152.DAOs.PassengerDAO;
 import com.tdp2.group152.models.*;
+import com.tdp2.group152.security.AuthorizationToken;
 import javassist.NotFoundException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
@@ -49,5 +50,12 @@ public class PassengerService {
     @Transactional
     public boolean authenticatePassenger(String email, String token) {
         return (this.passengerDao.getAuthTokenByTokenAndEmail(email, token) == null) ? false : true;
+    }
+
+    @Transactional
+    public AuthorizationToken signIn(String email, String password) {
+        Passenger passenger = this.passengerDao.getPassengerByEmail(email);
+        String salt = passenger.getSalt();
+        
     }
 }

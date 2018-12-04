@@ -56,4 +56,13 @@ public class PublicController extends SecuredController {
         LOGGER.info("Resolving healthcheck (sending OK)");
         return "OK!";
     }
+
+    @GetMapping(value = "/signin")
+    @ResponseBody
+    public boolean signInPassenger(
+            @HeaderParam("email") String email,
+            @HeaderParam("password") String password
+    ) {
+
+    }
 }
