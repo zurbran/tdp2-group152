@@ -11,12 +11,12 @@ public class ViajeHasParada {
     @EmbeddedId
     private ViajeHasParadaId id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "viaje_id_viaje")
     @MapsId("journeyId")
     private Journey journey;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "parada_id_parada")
     @MapsId("minibusStopId")
     private MinibusStop stop;
@@ -33,6 +33,10 @@ public class ViajeHasParada {
         this.stop = minibusStop;
         this.pickUpTime = pickUpTime;
         this.id = new ViajeHasParadaId(journey.getJourneyId(), minibusStop.getStopId());
+    }
+
+    public MinibusStop getStop() {
+        return stop;
     }
 
     public ViajeHasParadaId getId() {
@@ -62,7 +66,7 @@ public class ViajeHasParada {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if(o == null || getClass() != o.getClass()) return false;
         ViajeHasParada that = (ViajeHasParada) o;
         return Objects.equals(journey, that.journey) && Objects.equals(stop, that.stop);
     }

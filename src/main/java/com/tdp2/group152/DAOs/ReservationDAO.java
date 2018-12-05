@@ -6,6 +6,7 @@ import com.tdp2.group152.models.MinibusStop;
 import com.tdp2.group152.models.Ticket;
 import org.hibernate.SessionFactory;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -78,7 +79,7 @@ public class ReservationDAO {
                 .getResultList();
     }
 
-    public List<Journey> getJourneysForDate(String from, String to, Date date) {
+    public List<Journey> getJourneysForDate(String from, String to, LocalDate date) {
         return (List<Journey>) this.sessionFactory.getCurrentSession().createQuery("FROM Journey j WHERE j.destiny = :destiny AND j.origin = :origin AND year(j.departureTime) = year(:date) AND month(j.departureTime) = month(:date) AND day(j.departureTime) = day(:date)")
                 .setParameter("date", date)
                 .setParameter("destiny", to)

@@ -1,9 +1,9 @@
 package com.tdp2.group152.models;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,16 +22,16 @@ public class Journey {
     private String origin;
 
     @Column(name = "fecha")
-    private Date departureTime;
+    private LocalDate departureTime;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne()
     @JoinColumn(name = "combi_id_combi")
     private Minibus minibus;
 
-    @OneToMany(mappedBy = "journey", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "journey", cascade = CascadeType.ALL)
     private List<Ticket> reservedTickets;
 
-    @OneToMany(mappedBy = "journey", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "journey", cascade = CascadeType.ALL)
     private List<ViajeHasParada> stops;
 
     public Journey() {
@@ -39,7 +39,7 @@ public class Journey {
         this.stops = new ArrayList<>();
     }
 
-    public Journey(String destiny, String origin, Date departureTime) {
+    public Journey(String destiny, String origin, LocalDate departureTime) {
         this.destiny = destiny;
         this.origin = origin;
         this.departureTime = departureTime;
@@ -79,11 +79,11 @@ public class Journey {
         this.reservedTickets = reservedTickets;
     }
 
-    public Date getDepartureTime() {
+    public LocalDate getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(LocalDate departureTime) {
         this.departureTime = departureTime;
     }
 

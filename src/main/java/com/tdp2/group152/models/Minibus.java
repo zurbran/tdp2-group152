@@ -22,23 +22,13 @@ public class Minibus {
     @Column(name = "asientos")
     private int totalSeats;
 
-//    @OneToMany(
-//            mappedBy = "id.minibus",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
-//    )
-//    private List<CombiHasParada> stops;
-
-    public Minibus() {
-//        this.stops = new ArrayList<>();
-    }
+    public Minibus() {}
 
     public Minibus(String licensePlate, String model, String brand, int totalSeats) {
         this.licensePlate = licensePlate;
         this.model = model;
         this.brand = brand;
         this.totalSeats = totalSeats;
-//        this.stops = new ArrayList<>();
     }
 
     public Long getMinibusId() {

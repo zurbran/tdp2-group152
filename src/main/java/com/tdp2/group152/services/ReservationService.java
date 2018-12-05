@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +50,7 @@ public class ReservationService {
     }
 
     @Transactional
-    public List<Journey> getAvailableJourneys(String from, String to, Date date) {
+    public List<Journey> getAvailableJourneys(String from, String to, LocalDate date) {
         List<Journey> journeys = this.reservationDao.getJourneysForDate(from, to, date);
         List<Journey> availableJourneys = new ArrayList<>();
         for (Journey j : journeys) {

@@ -7,14 +7,17 @@ import com.tdp2.group152.services.PassengerService;
 import com.tdp2.group152.services.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.naming.AuthenticationException;
 import javax.ws.rs.HeaderParam;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -24,7 +27,8 @@ public class PublicController extends SecuredController {
     private ReservationService reservationService;
     private PassengerService passengerService;
 
-    public PublicController(){}
+    public PublicController() {
+    }
 
     public PublicController(ReservationService reservationService, PassengerService passengerService) {
         this.reservationService = reservationService;
@@ -36,24 +40,27 @@ public class PublicController extends SecuredController {
     public AvailabilityDTO elaborateAvailabilityResponse(
             @RequestParam("from") String from,
             @RequestParam("to") String to,
-            @RequestParam("from_date") String fromDate,
-            @HeaderParam("passengerId") Long passengerId,
-            @HeaderParam("authToken") String token
-    ) throws AuthenticationException {
+            @RequestParam("from_date") String fromDate
 
-        this.authenticateRequest(passengerId, token, this.passengerService);
+    ) {
+
+        //this.authenticateRequest(passengerId, token, this.passengerService);
         LOGGER.info("Searching availability for parameters " + "FROM:" + from + " TO:" + to + " fromDate:" + fromDate);
 
-        List<Journey> availableJourneys = reservationService.getAvailableJourneys(from, to, new Date(fromDate));
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(fromDate, df);
 
-        return new AvailabilityDTO(availableJourneys);
+        List<Journey> availableJourneys = reservationService.getAvailableJourneys(from, to, date);
+
+        AvailabilityDTO response = new AvailabilityDTO(availableJourneys);
+
+        return response;
     }
 
     @GetMapping(value = "/healthcheck")
-    @ResponseBody
-    public String check() {
+    @ResponseStatus(value = HttpStatus.OK)
+    public void check() {
         LOGGER.info("Resolving healthcheck (sending OK)");
-        return "OK!";
     }
 
     @GetMapping(value = "/signin")

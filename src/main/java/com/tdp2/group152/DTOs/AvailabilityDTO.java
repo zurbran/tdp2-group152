@@ -2,8 +2,7 @@ package com.tdp2.group152.DTOs;
 
 import com.tdp2.group152.models.Journey;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AvailabilityDTO {
@@ -13,15 +12,44 @@ public class AvailabilityDTO {
     private String date;
 
     public AvailabilityDTO(List<Journey> journeys) {
+        this.journeysDTO = new ArrayList<>();
         for (Journey j : journeys) {
             this.journeysDTO.add(new JourneyDTO(j));
         }
         this.from = journeys.get(0).getOrigin();
         this.to = journeys.get(0).getDestiny();
-
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-
-        this.date = dateFormat.format(journeys.get(0).getDepartureTime());
+        this.date = journeys.get(0).getDepartureTime().toString();
     }
 
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public List<JourneyDTO> getJourneysDTO() {
+        return journeysDTO;
+    }
+
+    public void setJourneysDTO(List<JourneyDTO> journeysDTO) {
+        this.journeysDTO = journeysDTO;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }
