@@ -4,9 +4,6 @@ import com.tdp2.group152.models.Passenger;
 import com.tdp2.group152.security.AuthorizationToken;
 import org.hibernate.SessionFactory;
 
-import javax.transaction.Transactional;
-
-@Transactional
 public class PassengerDAO {
 
     private SessionFactory sessionFactory;
@@ -38,6 +35,12 @@ public class PassengerDAO {
         return (AuthorizationToken) this.sessionFactory.getCurrentSession().createQuery("FROM AuthorizationToken t WHERE t.token = :token AND t.email = :email")
                 .setParameter("email", email)
                 .setParameter("token", token)
+                .uniqueResult();
+    }
+
+    public AuthorizationToken getAuthTokenByEmail(String email) {
+        return (AuthorizationToken) this.sessionFactory.getCurrentSession().createQuery("FROM AuthorizationToken t WHERE t.email = :email")
+                .setParameter("email", email)
                 .uniqueResult();
     }
 

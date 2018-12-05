@@ -2,6 +2,8 @@ package com.tdp2.group152.controllers;
 
 import com.tdp2.group152.DTOs.AvailabilityDTO;
 import com.tdp2.group152.models.Journey;
+import com.tdp2.group152.models.Passenger;
+import com.tdp2.group152.security.AuthorizationToken;
 import com.tdp2.group152.security.SecuredController;
 import com.tdp2.group152.services.PassengerService;
 import com.tdp2.group152.services.ReservationService;
@@ -9,13 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
-import javax.ws.rs.HeaderParam;
+import javax.naming.AuthenticationNotSupportedException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -40,10 +41,10 @@ public class PublicController extends SecuredController {
     public AvailabilityDTO elaborateAvailabilityResponse(
             @RequestParam("from") String from,
             @RequestParam("to") String to,
-            @RequestParam("from_date") String fromDate
-
-    ) {
-
+            @RequestParam("from_date") String fromDate,
+            @RequestHeader("passengerId") Long passengerId,
+            @RequestHeader("authToken") String token
+    ) throws AuthenticationException {
         //this.authenticateRequest(passengerId, token, this.passengerService);
         LOGGER.info("Searching availability for parameters " + "FROM:" + from + " TO:" + to + " fromDate:" + fromDate);
 
@@ -63,12 +64,27 @@ public class PublicController extends SecuredController {
         LOGGER.info("Resolving healthcheck (sending OK)");
     }
 
-    @GetMapping(value = "/signin")
+    @PostMapping(value = "/signin")
     @ResponseBody
-    public boolean signInPassenger(
-            @HeaderParam("email") String email,
-            @HeaderParam("password") String password
-    ) {
-        return true;
+    @ResponseStatus(value = HttpStatus.OK)
+    public void signInPassenger(
+            @RequestHeader("email") String email,
+            @RequestHeader("password") String password,
+            HttpServletResponse response
+    ) throws AuthenticationNotSupportedException {
+
+        if (email == null || password == null) {
+            throw new AuthenticationNotSupportedException();
+        } else {
+            AuthorizationToken token = this.passengerService.signIn(email, password);
+            if (token == null) {
+                throw new AuthenticationNotSupportedException();
+            } else {
+                Passenger passenger = this.passengerService.getPassengerByEmail(token.getEmail());
+                response.addCookie(new Cookie("__sessionId", Long.toString(passenger.getPassengerId())));
+                response.addCookie(new Cookie("__sessionToken", token.getToken()));
+
+            }
+        }
     }
 }

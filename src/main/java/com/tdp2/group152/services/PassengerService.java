@@ -7,12 +7,14 @@ import javassist.NotFoundException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.DigestUtils;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
 
 public class PassengerService {
 
+    private static final String uuid = "e2f3baf9-2e03-4503-89a5-57fe10bcb066";
     private PassengerDAO passengerDao;
     private ReservationService reservationService;
 
@@ -53,9 +55,25 @@ public class PassengerService {
     }
 
     @Transactional
+    public Passenger getPassengerByEmail(String email) {
+        return this.passengerDao.getPassengerByEmail(email);
+    }
+
+    @Transactional
     public AuthorizationToken signIn(String email, String password) {
         Passenger passenger = this.passengerDao.getPassengerByEmail(email);
         String salt = passenger.getSalt();
+        String hashedPwd = passenger.getPasswordHash();
+
+        if(BCrypt.hashpw(password, salt).equals(hashedPwd)) {
+            AuthorizationToken token = this.passengerDao.getAuthTokenByEmail(email);
+            if(token == null) {
+                AuthorizationToken newToken = new AuthorizationToken(email, DigestUtils.md5DigestAsHex((password + this.uuid).getBytes()));
+                this.passengerDao.saveOrUpdate(newToken);
+                return newToken;
+            }
+            return token;
+        }
         return null;
     }
 }
