@@ -31,6 +31,7 @@ public class PassengerService {
         p.setSalt(salt);
         String passwordHash = BCrypt.hashpw(password, salt);
         p.setPasswordHash(passwordHash);
+        p.setTerminal(false);
         this.passengerDao.saveOrUpdate(p);
     }
 

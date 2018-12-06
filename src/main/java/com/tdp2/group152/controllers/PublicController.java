@@ -2,6 +2,7 @@ package com.tdp2.group152.controllers;
 
 import com.tdp2.group152.DTOs.AvailabilityDTO;
 import com.tdp2.group152.DTOs.ReservationDTO;
+import com.tdp2.group152.DTOs.TicketValidationDTO;
 import com.tdp2.group152.models.Journey;
 import com.tdp2.group152.models.MinibusStop;
 import com.tdp2.group152.models.Passenger;
@@ -119,4 +120,30 @@ public class PublicController extends SecuredController {
             throw new NotFoundException("Ticket was not generated");
         }
     }
+
+    @PostMapping(value = "/ticket/{ticketId}/journey/{journeyId}/check")
+    @ResponseBody
+    public TicketValidationDTO validateTicket(
+            @RequestHeader("passengerId") Long passengerId,
+            @RequestHeader("authToken") String token,
+            @PathVariable("journeyId") Long journeyId,
+            @PathVariable("ticketId") Long ticketId
+    ) throws AuthenticationException {
+
+        this.authenticateRequestForTerminal(passengerId, token, this.passengerService);
+        Ticket ticket = this.reservationService.getTicketById(ticketId);
+        if (!(ticket.isUsed()) && (ticket.getJourney().getJourneyId() == journeyId)) {
+            ticket.setUsed(true);
+            this.reservationService.update(ticket);
+            TicketValidationDTO dto = new TicketValidationDTO("OK", journeyId, ticketId);
+            return dto;
+        } else if (!(ticket.isUsed())){
+            TicketValidationDTO dto = new TicketValidationDTO("INVALID", journeyId, ticketId);
+            return dto;
+        } else {
+            TicketValidationDTO dto = new TicketValidationDTO("USED", journeyId, ticketId);
+            return dto;
+        }
+    }
 }
+
