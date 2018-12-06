@@ -1,25 +1,33 @@
 package com.tdp2.group152.controllers;
 
 import com.tdp2.group152.DTOs.AvailabilityDTO;
+import com.tdp2.group152.DTOs.ReservationDTO;
 import com.tdp2.group152.models.Journey;
+import com.tdp2.group152.models.MinibusStop;
 import com.tdp2.group152.models.Passenger;
+import com.tdp2.group152.models.Ticket;
 import com.tdp2.group152.security.AuthorizationToken;
 import com.tdp2.group152.security.SecuredController;
 import com.tdp2.group152.services.PassengerService;
 import com.tdp2.group152.services.ReservationService;
+import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
 import javax.naming.AuthenticationNotSupportedException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Path;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -41,11 +49,9 @@ public class PublicController extends SecuredController {
     public AvailabilityDTO elaborateAvailabilityResponse(
             @RequestParam("from") String from,
             @RequestParam("to") String to,
-            @RequestParam("from_date") String fromDate,
-            @RequestHeader("passengerId") Long passengerId,
-            @RequestHeader("authToken") String token
-    ) throws AuthenticationException {
-        //this.authenticateRequest(passengerId, token, this.passengerService);
+            @RequestParam("from_date") String fromDate
+    ) {
+
         LOGGER.info("Searching availability for parameters " + "FROM:" + from + " TO:" + to + " fromDate:" + fromDate);
 
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -85,6 +91,32 @@ public class PublicController extends SecuredController {
                 response.addCookie(new Cookie("__sessionToken", token.getToken()));
 
             }
+        }
+    }
+
+    @PostMapping(value = "/journey/{journeyId}/ticket/{stopId}")
+    @ResponseBody
+    public ReservationDTO reserveTicket(
+            @RequestHeader("passengerId") Long passengerId,
+            @RequestHeader("authToken") String token,
+            @PathVariable("journeyId") Long journeyId,
+            @PathVariable("stopId") Long stopId
+    ) throws Exception {
+
+        this.authenticateRequest(passengerId, token, this.passengerService);
+        MinibusStop minibusStop = this.reservationService.getMinibusStopById(stopId);
+        Journey journey = this.reservationService.getJourneyById(journeyId);
+        Passenger passenger = this.passengerService.getPassengerById(passengerId);
+
+        Optional<Ticket> opt = this.reservationService.reserveTicket(journey, minibusStop, passenger);
+        if(opt.isPresent()) {
+            Ticket ticket = opt.get();
+            LocalTime pickUpTime = this.reservationService.getPickupTime(journey, minibusStop);
+            ReservationDTO dto = new ReservationDTO(journey.getOrigin(), journey.getDestiny(), minibusStop, ticket.getTicketId(), pickUpTime, journey.getDepartureTime());
+            return dto;
+
+        } else {
+            throw new NotFoundException("Ticket was not generated");
         }
     }
 }

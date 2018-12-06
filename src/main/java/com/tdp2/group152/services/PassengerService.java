@@ -35,13 +35,9 @@ public class PassengerService {
     }
 
     @Transactional
-    public void generateTicket(Passenger passenger, MinibusStop minibusStop, Journey journey) throws Exception {
-        Optional<Ticket> opt = this.reservationService.reserveTicket(journey, minibusStop, passenger);
-        if(opt.isPresent()) {
-            //TODO Generate QR Code Object based on retrieved ticket to return it back to the controller
-        } else {
-            throw new NotFoundException("Ticket was not generated");
-        }
+    public Ticket generateTicketQR(Ticket ticket) throws Exception {
+        //TODO Generate QR Code Object based on retrieved ticket to return it back to the controller
+        return null;
     }
 
     @Transactional

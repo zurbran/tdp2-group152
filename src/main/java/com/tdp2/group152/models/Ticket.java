@@ -12,15 +12,15 @@ public class Ticket {
     @Column(name = "id_pasaje")
     private Long ticketId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "parada_id_parada", nullable = false)
     private MinibusStop minibusStop;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "viaje_id_viaje", nullable = false)
     private Journey journey;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "pasajero_id_pasajero")
     private Passenger passenger;
 

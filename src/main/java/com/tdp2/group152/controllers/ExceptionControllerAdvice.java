@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.naming.AuthenticationException;
+import javax.naming.AuthenticationNotSupportedException;
+
 
 @ControllerAdvice
 public class ExceptionControllerAdvice {
@@ -27,5 +30,17 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<ApiErrorModel> handleException(ResourceNotAvailableException e) {
         ApiErrorModel error = new ApiErrorModel(409, e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(AuthenticationNotSupportedException.class)
+    public ResponseEntity<ApiErrorModel> handleException(AuthenticationNotSupportedException e) {
+        ApiErrorModel error = new ApiErrorModel(500, e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiErrorModel> handleException(AuthenticationException e) {
+        ApiErrorModel error = new ApiErrorModel(500, e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

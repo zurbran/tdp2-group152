@@ -7,6 +7,7 @@ import com.tdp2.group152.models.Ticket;
 import org.hibernate.SessionFactory;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -88,4 +89,10 @@ public class ReservationDAO {
                 .getResultList();
     }
 
+    public LocalTime getPickUpTime(Journey journey, MinibusStop stop) {
+        return (LocalTime) this.sessionFactory.getCurrentSession().createQuery("SELECT pickUpTime FROM ViajeHasParada vhp WHERE journey.journeyId = :journeyId AND stop.stopId = :stopId")
+                .setParameter("journeyId", journey.getJourneyId())
+                .setParameter("stopId", stop.getStopId())
+                .uniqueResult();
+    }
 }

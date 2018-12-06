@@ -5,11 +5,13 @@ import com.tdp2.group152.models.Journey;
 import com.tdp2.group152.models.MinibusStop;
 import com.tdp2.group152.models.Passenger;
 import com.tdp2.group152.models.Ticket;
+import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +43,7 @@ public class ReservationService {
             }
         } catch (Exception e) {
             LOGGER.error("Error while saving in the db.");
-            throw new Exception("Error when trying to reserve ticket.");
+            throw new NotFoundException("Error when trying to reserve ticket.");
         }
 
         Optional<Ticket> opt = Optional.ofNullable(ticket);
@@ -60,6 +62,21 @@ public class ReservationService {
         }
 
         return availableJourneys;
+    }
+
+    @Transactional
+    public Journey getJourneyById(Long id) {
+        return this.reservationDao.getJourneyById(id);
+    }
+
+    @Transactional
+    public MinibusStop getMinibusStopById(Long id ) {
+        return this.reservationDao.getMinibusStopById(id);
+    }
+
+    @Transactional
+    public LocalTime getPickupTime(Journey journey, MinibusStop stop) {
+        return this.reservationDao.getPickUpTime(journey, stop);
     }
 
 }
