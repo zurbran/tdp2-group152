@@ -6,12 +6,13 @@ import com.tdp2.group152.models.MinibusStop;
 import com.tdp2.group152.models.Ticket;
 import org.hibernate.SessionFactory;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
-
+@Transactional
 public class ReservationDAO {
 
     private SessionFactory sessionFactory;
@@ -52,7 +53,7 @@ public class ReservationDAO {
     }
 
     public Ticket getTicketById(Long id) {
-        return (Ticket) this.sessionFactory.getCurrentSession().createQuery("FROM Ticket t WHERE t.tickerId = :ticketId")
+        return (Ticket) this.sessionFactory.getCurrentSession().createQuery("FROM Ticket t WHERE t.ticketId = :ticketId")
                 .setParameter("ticketId", id)
                 .uniqueResult();
     }
@@ -94,5 +95,9 @@ public class ReservationDAO {
                 .setParameter("journeyId", journey.getJourneyId())
                 .setParameter("stopId", stop.getStopId())
                 .uniqueResult();
+    }
+
+    public void saveOrUpdate(Ticket ticket) {
+        this.sessionFactory.getCurrentSession().saveOrUpdate(ticket);
     }
 }

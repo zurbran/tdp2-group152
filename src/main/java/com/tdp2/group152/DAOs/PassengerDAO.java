@@ -4,6 +4,9 @@ import com.tdp2.group152.models.Passenger;
 import com.tdp2.group152.security.AuthorizationToken;
 import org.hibernate.SessionFactory;
 
+import javax.transaction.Transactional;
+
+@Transactional
 public class PassengerDAO {
 
     private SessionFactory sessionFactory;
@@ -15,7 +18,6 @@ public class PassengerDAO {
     public void saveOrUpdate(Passenger p) {
         this.sessionFactory.getCurrentSession().saveOrUpdate(p);
     }
-
 
     public void delete(Passenger p) {
         this.sessionFactory.getCurrentSession().delete(p);

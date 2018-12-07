@@ -28,17 +28,19 @@ public class Passenger {
     @Column(name = "password_hash")
     private String passwordHash;
 
+    @Column(name = "isTerminal")
+    private boolean isTerminal;
+
     public Passenger() {
     }
 
-    public Passenger(Long passengerId, String dni, String name, String surname, String email) {
-        this.passengerId = passengerId;
+    public Passenger(String dni, String name, String surname, String email, boolean isTerminal) {
         this.dni = dni;
         this.name = name;
         this.surname = surname;
         this.email = email;
+        this.isTerminal = isTerminal;
     }
-
 
     public Long getPassengerId() {
         return passengerId;
@@ -96,4 +98,11 @@ public class Passenger {
         this.passwordHash = passwordHash;
     }
 
+    public boolean isTerminal() {
+        return isTerminal;
+    }
+
+    public void setTerminal(boolean terminal) {
+        isTerminal = terminal;
+    }
 }

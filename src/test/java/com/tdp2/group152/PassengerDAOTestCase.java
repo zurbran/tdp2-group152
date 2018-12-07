@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -139,8 +140,22 @@ public class PassengerDAOTestCase {
         passenger.setSalt(salt);
         String passwordHash = BCrypt.hashpw(password, salt);
         passenger.setPasswordHash(passwordHash);
+        passenger.setTerminal(false);
+
+        Passenger passenger2 = new Passenger();
+        passenger2.setDni("0");
+        String password2 = "asdasd";
+        passenger2.setName("RaspBerry Pi");
+        passenger2.setSurname("3 Model B");
+        passenger2.setEmail("terminalone@combiLP.com");
+        String salt2 = BCrypt.gensalt();
+        passenger2.setSalt(salt2);
+        String passwordHash2 = BCrypt.hashpw(password2, salt2);
+        passenger2.setPasswordHash(passwordHash2);
+        passenger2.setTerminal(true);
 
         this.passengerFactory.saveOrUpdate(passenger);
+        this.passengerFactory.saveOrUpdate(passenger2);
 
         Ticket ticket = new Ticket();
         ticket.setUsed(false);

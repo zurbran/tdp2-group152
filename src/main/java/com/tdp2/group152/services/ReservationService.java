@@ -79,4 +79,13 @@ public class ReservationService {
         return this.reservationDao.getPickUpTime(journey, stop);
     }
 
+    @Transactional
+    public Ticket getTicketById(Long id) {
+        return this.reservationDao.getTicketById(id);
+    }
+
+    @Transactional
+    public void update(Ticket ticket) {
+        this.reservationDao.saveOrUpdate(ticket);
+    }
 }
