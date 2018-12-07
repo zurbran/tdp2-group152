@@ -112,7 +112,8 @@ public class PublicController extends SecuredController {
         if(opt.isPresent()) {
             Ticket ticket = opt.get();
             LocalTime pickUpTime = this.reservationService.getPickupTime(journey, minibusStop);
-            ReservationDTO dto = new ReservationDTO(journey.getOrigin(), journey.getDestiny(), minibusStop, ticket.getTicketId(), pickUpTime, journey.getDepartureTime());
+            ReservationDTO dto = new ReservationDTO(journey.getOrigin(), journey.getDestiny(), minibusStop, ticket.getTicketId()
+                    , pickUpTime, journey.getDepartureTime());
             return dto;
 
         } else {
