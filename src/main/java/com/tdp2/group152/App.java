@@ -24,7 +24,7 @@ public class App {
         WebAppContext handler = new WebAppContext();
         handler.addServlet(new ServletHolder(dispatcherServlet), "/api/v1/*");
         handler.setResourceBase("src/main/resources");
-        Server server = new Server(9290);
+        Server server = new Server(9291);
 
         server.setHandler(handler);
 

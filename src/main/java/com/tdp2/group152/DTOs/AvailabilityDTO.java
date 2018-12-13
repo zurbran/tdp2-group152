@@ -21,6 +21,9 @@ public class AvailabilityDTO {
         this.date = journeys.get(0).getDepartureTime().toString();
     }
 
+    public AvailabilityDTO() {
+    }
+
     public String getFrom() {
         return from;
     }

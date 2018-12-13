@@ -14,18 +14,14 @@ import com.tdp2.group152.services.ReservationService;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
 import javax.naming.AuthenticationNotSupportedException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Path;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -62,7 +58,12 @@ public class PublicController extends SecuredController {
 
         List<Journey> availableJourneys = reservationService.getAvailableJourneys(from, to, date);
 
-        AvailabilityDTO response = new AvailabilityDTO(availableJourneys);
+        AvailabilityDTO response;
+
+        if (!availableJourneys.isEmpty()) {
+            response = new AvailabilityDTO(availableJourneys);
+        } else
+            response = new AvailabilityDTO();
 
         return response;
     }
@@ -114,7 +115,7 @@ public class PublicController extends SecuredController {
         Passenger passenger = this.passengerService.getPassengerById(passengerId);
 
         Optional<Ticket> opt = this.reservationService.reserveTicket(journey, minibusStop, passenger);
-        if(opt.isPresent()) {
+        if (opt.isPresent()) {
             Ticket ticket = opt.get();
             LocalTime pickUpTime = this.reservationService.getPickupTime(journey, minibusStop);
             ReservationDTO dto = new ReservationDTO(journey.getOrigin(), journey.getDestiny(), minibusStop, ticket.getTicketId()
@@ -142,7 +143,7 @@ public class PublicController extends SecuredController {
             this.reservationService.update(ticket);
             TicketValidationDTO dto = new TicketValidationDTO("OK", journeyId, ticketId);
             return dto;
-        } else if (!(ticket.isUsed())){
+        } else if (!(ticket.isUsed())) {
             TicketValidationDTO dto = new TicketValidationDTO("INVALID", journeyId, ticketId);
             return dto;
         } else {
