@@ -16,7 +16,7 @@
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost/group152?useLegacyDatetimeCode=false&amp;serverTimezone=America/Argentina/Buenos_Aires&amp;useSSL=false"/>
         <property name="username" value="root"/>
-        <property name="password" value=""/>
+        <property name="password" value="asdasd"/>
         <property name="testOnBorrow" value="true"/>
         <property name="maxTotal" value="10"/>
         <property name="minIdle" value="0"/>
