@@ -14,7 +14,9 @@ import com.tdp2.group152.services.ReservationService;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.*;
@@ -71,6 +73,7 @@ public class PublicController extends SecuredController {
         LOGGER.info("Resolving healthcheck (sending OK)");
     }
 
+    @CrossOrigin
     @PostMapping(value = "/signin")
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
@@ -90,12 +93,13 @@ public class PublicController extends SecuredController {
                 Passenger passenger = this.passengerService.getPassengerByEmail(token.getEmail());
                 response.addCookie(new Cookie("__sessionId", Long.toString(passenger.getPassengerId())));
                 response.addCookie(new Cookie("__sessionToken", token.getToken()));
+                response.addCookie(new Cookie("email", token.getEmail()));
 
             }
         }
     }
 
-    @PostMapping(value = "/journey/{journeyId}/ticket/{stopId}")
+    @PostMapping(value = "/journey/{journeyId}/stop/{stopId}/")
     @ResponseBody
     public ReservationDTO reserveTicket(
             @RequestHeader("passengerId") Long passengerId,
@@ -114,7 +118,7 @@ public class PublicController extends SecuredController {
             Ticket ticket = opt.get();
             LocalTime pickUpTime = this.reservationService.getPickupTime(journey, minibusStop);
             ReservationDTO dto = new ReservationDTO(journey.getOrigin(), journey.getDestiny(), minibusStop, ticket.getTicketId()
-                    , pickUpTime, journey.getDepartureTime());
+                    , pickUpTime, journey.getDepartureTime(), journey.getJourneyId());
             return dto;
 
         } else {

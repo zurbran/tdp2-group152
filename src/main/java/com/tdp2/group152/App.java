@@ -22,9 +22,9 @@ public class App {
         dispatcherServlet.setContextConfigLocation("classpath:ApplicationContext.xml");
 
         WebAppContext handler = new WebAppContext();
-        handler.addServlet(new ServletHolder(dispatcherServlet), "/decoder/*");
-        handler.setResourceBase("src/resources");
-        Server server = new Server(8080);
+        handler.addServlet(new ServletHolder(dispatcherServlet), "/api/v1/*");
+        handler.setResourceBase("src/main/resources");
+        Server server = new Server(9290);
 
         server.setHandler(handler);
 

@@ -1,7 +1,6 @@
 package com.tdp2.group152.DTOs;
 
 import com.tdp2.group152.models.MinibusStop;
-import com.tdp2.group152.models.Ticket;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,16 +10,18 @@ public class ReservationDTO {
     private String to;
     private MinibusStop stop;
     private Long ticketId;
-    private String pickUpDate;
+    private String time;
     private String date;
+    private Long journeyId;
 
-    public ReservationDTO(String from, String to, MinibusStop stop, Long ticketId, LocalTime pickUpDate, LocalDate date) {
+    public ReservationDTO(String from, String to, MinibusStop stop, Long ticketId, LocalTime time, LocalDate date, Long journeyId) {
         this.from = from;
         this.to = to;
         this.stop = stop;
         this.ticketId = ticketId;
-        this.pickUpDate = pickUpDate.toString();
+        this.time = time.toString();
         this.date = date.toString();
+        this.journeyId = journeyId;
     }
 
     public String getFrom() {
@@ -55,12 +56,12 @@ public class ReservationDTO {
         this.ticketId = ticketId;
     }
 
-    public String getPickUpDate() {
-        return pickUpDate;
+    public String getTime() {
+        return time;
     }
 
-    public void setPickUpDate(String pickUpDate) {
-        this.pickUpDate = pickUpDate;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getDate() {
@@ -71,4 +72,11 @@ public class ReservationDTO {
         this.date = date;
     }
 
+    public Long getJourneyId() {
+        return journeyId;
+    }
+
+    public void setJourneyId(Long journeyId) {
+        this.journeyId = journeyId;
+    }
 }
