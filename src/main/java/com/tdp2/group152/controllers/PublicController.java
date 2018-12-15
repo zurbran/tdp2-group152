@@ -2,6 +2,7 @@ package com.tdp2.group152.controllers;
 
 import com.tdp2.group152.DTOs.AvailabilityDTO;
 import com.tdp2.group152.DTOs.ReservationDTO;
+import com.tdp2.group152.DTOs.SigninDTO;
 import com.tdp2.group152.DTOs.TicketValidationDTO;
 import com.tdp2.group152.models.Journey;
 import com.tdp2.group152.models.MinibusStop;
@@ -43,6 +44,7 @@ public class PublicController extends SecuredController {
         this.passengerService = passengerService;
     }
 
+    @CrossOrigin
     @GetMapping(value = "/availability")
     @ResponseBody
     public AvailabilityDTO elaborateAvailabilityResponse(
@@ -77,8 +79,7 @@ public class PublicController extends SecuredController {
     @CrossOrigin
     @PostMapping(value = "/signin")
     @ResponseBody
-    @ResponseStatus(value = HttpStatus.OK)
-    public void signInPassenger(
+    public SigninDTO signInPassenger(
             @RequestHeader("email") String email,
             @RequestHeader("password") String password,
             HttpServletResponse response
@@ -92,14 +93,13 @@ public class PublicController extends SecuredController {
                 throw new AuthenticationNotSupportedException();
             } else {
                 Passenger passenger = this.passengerService.getPassengerByEmail(token.getEmail());
-                response.addCookie(new Cookie("__sessionId", Long.toString(passenger.getPassengerId())));
-                response.addCookie(new Cookie("__sessionToken", token.getToken()));
-                response.addCookie(new Cookie("email", token.getEmail()));
-
+                SigninDTO dto = new SigninDTO(token.getEmail(), token.getToken(), passenger.getPassengerId());
+                return dto;
             }
         }
     }
 
+    @CrossOrigin
     @PostMapping(value = "/journey/{journeyId}/stop/{stopId}/")
     @ResponseBody
     public ReservationDTO reserveTicket(
