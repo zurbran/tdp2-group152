@@ -2,6 +2,7 @@ package com.tdp2.group152.DTOs;
 
 
 import com.tdp2.group152.models.Ticket;
+import com.tdp2.group152.models.ViajeHasParada;
 
 public class TicketDTO {
     private PassengerDTO user;
@@ -30,4 +31,5 @@ public class TicketDTO {
     public void setJourneyData(TicketJourneyDTO journeyData) {
         this.journeyData = journeyData;
     }
+
 }

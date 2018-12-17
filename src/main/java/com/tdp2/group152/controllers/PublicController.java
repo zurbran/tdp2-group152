@@ -152,11 +152,11 @@ public class PublicController extends SecuredController {
     @GetMapping(value = "/ticket/{ticketId}")
     @ResponseBody
     public TicketDTO retieveTicket(
-  //          @RequestHeader("passengerId") Long passengerId,
-  //          @RequestHeader("authToken") String token,
+            @RequestHeader("passengerId") Long passengerId,
+            @RequestHeader("authToken") String token,
             @PathVariable("ticketId") Long ticketId
     ) throws AuthenticationException {
-   //     this.authenticateRequest(passengerId, token, this.passengerService);
+        this.authenticateRequest(passengerId, token, this.passengerService);
         Ticket ticket = this.reservationService.getTicketById(ticketId);
         LOGGER.info("Obtenido el ticket: {}", ticketId);
         TicketDTO parsedTicket = new TicketDTO(ticket);

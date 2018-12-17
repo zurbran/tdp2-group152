@@ -45,8 +45,14 @@ public class PassengerDAOTestCase {
     private Journey journey3;
     private Journey journey4;
 
+    private LocalDate baseDate;
+    private LocalTime baseTime;
+
     @Before
     public void initTest() {
+        this.baseDate = LocalDate.of(2018, 12, 15);
+        this.baseTime = LocalTime.of(0,0,0);
+
         Minibus minibus = new Minibus();
         minibus.setLicensePlate("DTK-177");
         minibus.setBrand("Peugeot");
@@ -74,7 +80,7 @@ public class PassengerDAOTestCase {
         Journey journey = new Journey();
         journey.setDestiny("Buenos Aires");
         journey.setOrigin("La Plata");
-        journey.setDepartureTime(LocalDate.now().plusDays(1));
+        journey.setDepartureTime(this.baseDate);
         journey.setMinibus(minibus);
         this.reservationDAO.saveOrUpdate(journey);
         this.journey = journey;
@@ -82,7 +88,7 @@ public class PassengerDAOTestCase {
         Journey journey2 = new Journey();
         journey2.setDestiny("Buenos Aires");
         journey2.setOrigin("La Plata");
-        journey2.setDepartureTime(LocalDate.now().plusDays(2));
+        journey2.setDepartureTime(this.baseDate);
         journey2.setMinibus(minibus2);
         this.reservationDAO.saveOrUpdate(journey2);
         this.journey2 = journey2;
@@ -90,7 +96,7 @@ public class PassengerDAOTestCase {
         Journey journey3 = new Journey();
         journey3.setDestiny("Buenos Aires");
         journey3.setOrigin("La Plata");
-        journey3.setDepartureTime(LocalDate.now().plusDays(3));
+        journey3.setDepartureTime(this.baseDate.plusDays(1));
         journey3.setMinibus(minibus3);
         this.reservationDAO.saveOrUpdate(journey3);
         this.journey3 = journey3;
@@ -98,7 +104,7 @@ public class PassengerDAOTestCase {
         Journey journey4 = new Journey();
         journey4.setOrigin("Buenos Aires");
         journey4.setDestiny("La Plata");
-        journey4.setDepartureTime(LocalDate.now().plusDays(4));
+        journey4.setDepartureTime(this.baseDate.plusDays(2));
         journey4.setMinibus(minibus);
         this.reservationDAO.saveOrUpdate(journey4);
         this.journey4 = journey4;
@@ -160,22 +166,22 @@ public class PassengerDAOTestCase {
         ticket.setMinibusStop(this.minibusStop);
         ticket.setPassenger(passenger);
         this.journey.addTicket(ticket);
-        this.journey.addStop(this.minibusStop, LocalTime.now());
-        this.journey.addStop(this.minibusStop2, LocalTime.now().plusHours(1));
-        this.journey.addStop(this.minibusStop3, LocalTime.now().plusHours(2));
+        this.journey.addStop(this.minibusStop, this.baseTime);
+        this.journey.addStop(this.minibusStop2, this.baseTime.plusMinutes(15));
+        this.journey.addStop(this.minibusStop3, this.baseTime.plusHours(1));
         this.reservationDAO.saveOrUpdate(journey);
 
-        this.journey2.addStop(this.minibusStop, LocalTime.now().plusHours(4));
-        this.journey2.addStop(this.minibusStop2, LocalTime.now().plusHours(5));
+        this.journey2.addStop(this.minibusStop, this.baseTime.plusHours(10));
+        this.journey2.addStop(this.minibusStop2, this.baseTime.plusHours(10).plusMinutes(15));
         this.reservationDAO.saveOrUpdate(journey2);
 
-        this.journey3.addStop(this.minibusStop2, LocalTime.now().plusHours(10));
-        this.journey3.addStop(this.minibusStop3, LocalTime.now().plusHours(11));
+        this.journey3.addStop(this.minibusStop2, this.baseTime.plusHours(14));
+        this.journey3.addStop(this.minibusStop3, this.baseTime.plusHours(14).plusMinutes(30));
         this.reservationDAO.saveOrUpdate(journey3);
 
-        this.journey4.addStop(this.minibusStop3, LocalTime.now().plusHours(14));
-        this.journey4.addStop(this.minibusStop2, LocalTime.now().plusHours(15));
-        this.journey4.addStop(this.minibusStop, LocalTime.now().plusHours(16));
+        this.journey4.addStop(this.minibusStop3, this.baseTime.plusHours(17));
+        this.journey4.addStop(this.minibusStop2, this.baseTime.plusHours(17).plusMinutes(30));
+        this.journey4.addStop(this.minibusStop, this.baseTime.plusHours(18));
         this.reservationDAO.saveOrUpdate(journey4);
 
         this.reservationDAO.getJourneyById(journey.getJourneyId());

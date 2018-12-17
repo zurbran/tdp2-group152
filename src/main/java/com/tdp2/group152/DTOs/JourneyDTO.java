@@ -11,7 +11,7 @@ import java.util.List;
 public class JourneyDTO {
     private Long journeyId;
     private String time;
-    private List<MinibusStop> stops;
+    private List<MinibusStopDTO> stops;
 
     public JourneyDTO(Journey j) {
         LocalTime datetime = LocalTime.now();
@@ -20,7 +20,8 @@ public class JourneyDTO {
         if (!j.getStops().isEmpty()) {
             datetime = j.getStops().get(0).getPickUpTime();
             for (ViajeHasParada v : j.getStops()) {
-                this.stops.add(v.getStop());
+                MinibusStopDTO dto = new MinibusStopDTO(v.getStop(), v.getPickUpTime().toString());
+                this.stops.add(dto);
             }
         }
         this.time = datetime.toString();
@@ -42,11 +43,11 @@ public class JourneyDTO {
         this.time = time;
     }
 
-    public List<MinibusStop> getStops() {
+    public List<MinibusStopDTO> getStops() {
         return stops;
     }
 
-    public void setStops(List<MinibusStop> stops) {
+    public void setStops(List<MinibusStopDTO> stops) {
         this.stops = stops;
     }
 }

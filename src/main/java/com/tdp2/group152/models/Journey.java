@@ -122,4 +122,13 @@ public class Journey {
         return this.getReservedTickets().size() < this.getMinibus().getTotalSeats();
     }
 
+    public LocalTime getStopById(Long id) {
+        for(ViajeHasParada vhp : this.stops) {
+            if(vhp.getStop().getStopId() == id) {
+                return vhp.getPickUpTime();
+            }
+        }
+        return null;
+    }
+
 }

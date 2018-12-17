@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "combi")
 public class Minibus {
+
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "id_combi")

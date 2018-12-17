@@ -9,6 +9,7 @@ public class TicketJourneyDTO {
     private String destiny;
     private String date;
     private String id;
+    private String time;
 
     public TicketJourneyDTO() {
     }
@@ -19,6 +20,7 @@ public class TicketJourneyDTO {
         this.destiny = ticket.getJourney().getDestiny();
         this.date = ticket.getJourney().getDepartureTime().toString();
         this.id = ticket.getJourney().getJourneyId().toString();
+        this.time = ticket.getJourney().getStopById(ticket.getMinibusStop().getStopId()).toString();
     }
 
     public String getId() {
@@ -59,5 +61,13 @@ public class TicketJourneyDTO {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
