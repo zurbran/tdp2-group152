@@ -126,7 +126,6 @@ public class PassengerDAOTestCase {
     }
 
     @Test
-    @Transactional
     public void testSavePassenger() throws NoSuchAlgorithmException {
         Passenger passenger = new Passenger();
         passenger.setDni("38468109");

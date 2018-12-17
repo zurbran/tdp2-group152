@@ -81,7 +81,9 @@ public class ReservationService {
 
     @Transactional
     public Ticket getTicketById(Long id) {
-        return this.reservationDao.getTicketById(id);
+        Ticket ticket = this.reservationDao.getTicketById(id);
+
+        return ticket;
     }
 
     @Transactional

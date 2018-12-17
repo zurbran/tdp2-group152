@@ -1,9 +1,6 @@
 package com.tdp2.group152.controllers;
 
-import com.tdp2.group152.DTOs.AvailabilityDTO;
-import com.tdp2.group152.DTOs.ReservationDTO;
-import com.tdp2.group152.DTOs.SigninDTO;
-import com.tdp2.group152.DTOs.TicketValidationDTO;
+import com.tdp2.group152.DTOs.*;
 import com.tdp2.group152.models.Journey;
 import com.tdp2.group152.models.MinibusStop;
 import com.tdp2.group152.models.Passenger;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
 import javax.naming.AuthenticationNotSupportedException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -108,7 +104,6 @@ public class PublicController extends SecuredController {
             @PathVariable("journeyId") Long journeyId,
             @PathVariable("stopId") Long stopId
     ) throws Exception {
-
         this.authenticateRequest(passengerId, token, this.passengerService);
         MinibusStop minibusStop = this.reservationService.getMinibusStopById(stopId);
         Journey journey = this.reservationService.getJourneyById(journeyId);
@@ -150,6 +145,22 @@ public class PublicController extends SecuredController {
             TicketValidationDTO dto = new TicketValidationDTO("USED", journeyId, ticketId);
             return dto;
         }
+    }
+
+
+    @CrossOrigin
+    @GetMapping(value = "/ticket/{ticketId}")
+    @ResponseBody
+    public TicketDTO retieveTicket(
+  //          @RequestHeader("passengerId") Long passengerId,
+  //          @RequestHeader("authToken") String token,
+            @PathVariable("ticketId") Long ticketId
+    ) throws AuthenticationException {
+   //     this.authenticateRequest(passengerId, token, this.passengerService);
+        Ticket ticket = this.reservationService.getTicketById(ticketId);
+        LOGGER.info("Obtenido el ticket: {}", ticketId);
+        TicketDTO parsedTicket = new TicketDTO(ticket);
+        return parsedTicket;
     }
 }
 
